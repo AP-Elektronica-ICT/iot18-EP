@@ -9,7 +9,7 @@
 ### Diagrammen
 
 #### Algemene architectuur
-
+![Algemene architecture](/images/architecture.png)
 #### Gedetailleerde diagrammen
 
 #### Schema's van het product
