@@ -9,7 +9,10 @@
 ### Diagrammen
 
 #### Algemene architectuur
-![Algemene architecture](/images/architecture.png)
+Anchor netwerk
+![Anchor netwerk](/doc/images/anchornetwerk.png)
+Volledige architectuur
+![Algemene architecture](/doc/images/architecture.png)
 #### Gedetailleerde diagrammen
 
 #### Schema's van het product
