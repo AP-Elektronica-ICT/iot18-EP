@@ -31,10 +31,10 @@ Volledige architectuur
 We gaan de behuizingen van de tags en ankers printen. Deze tekeningen kunnne we zelf ontwerpen en ook zelf printen omdat we de nodige kennis hebben van de tekensoftware. Maar er is ook een kans dat we dit op school gaan doen.
 
 #### Niet functionele analyse 
-    -Reusability: als je naar een andere locatue verhuist kan je de tags op een andere               plaats zetten. en deze ook in de app aanpassen
+    -Reusability: als je naar een andere locatue verhuist kan je de tags op een andere plaats zetten. en deze ook in de app aanpassen
     -Scalability: je  kan zo veel tags zetten als je wilt
     -Portability: het zijn keline divices
-    -Testability: je kan gemakkelijk testen of het systeem nog werkt, als data niet                   klopt kan je dit gemakkelijk zijn omdat het dan een volledige andere               locatie weergeeft
+    -Testability: je kan gemakkelijk testen of het systeem nog werkt, als data niet  klopt kan je dit gemakkelijk zijn omdat het dan een volledige andere               locatie weergeeft
 
 ## Functionaliteit
 Zie Jira
