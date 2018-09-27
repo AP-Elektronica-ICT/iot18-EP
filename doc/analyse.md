@@ -15,12 +15,13 @@
 ### Diagrammen
 
 #### Algemene architectuur
-Anchor netwerk  
-![Anchor netwerk](/doc/images/anchornetwerk.png)
 Volledige architectuur  
 ![Algemene architecture](/doc/images/architecture.png)
 #### Gedetailleerde diagrammen
-
+Anchor netwerk  
+![Anchor netwerk](/doc/images/anchornetwerk.png)
+Flowchart Algemene werking  
+![Anchor netwerk](/doc/images/GeneralFlowchart.png)
 #### Schema's van het product
 
 #### Fysiek design (Optioneel)
