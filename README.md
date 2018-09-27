@@ -1,7 +1,10 @@
-# Internet of Things - Naam Project
+# Internet of Things - Logistiek Tracking (Naam WIP)
 
 ## Groepsleden
-Naam - Verantwoordelijkheid
+Geentjens Wim - Trackingsoftware developer
+Knaepkens Tom - Team leader + Trackinghardware developer
+Scheyltjens Yorick - Backend webdeveloper
+Cools Jens - Frontend webdeveloper
 
 ## Documentatie
 
