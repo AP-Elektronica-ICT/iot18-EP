@@ -95,18 +95,17 @@
 
 
   </g>
-<g
-    inkscape:groupmode="layer"
-    id="layer2"
-    inkscape:label="Layer 2">
-  <circle  *ngFor ="let tag of tags"
-  style ="opacity:1;fill: #fffb00;fill-opacity:1;stroke:#22d521;stroke-width:0.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-  [attr.id]="path10"
-  [attr.cx]= "tag.cx"
-  [attr.cy]= "tag.cy"
-  [attr.r]="1.8816968" />
-
-</g>
+  <g *ngIf ="tags"
+    inkscape:groupmode="tag"
+    id="tag"
+    inkscape:label="tag">
+    <circle  *ngFor ="let tag of tags"
+      style ="opacity:1;fill: #fffb00;fill-opacity:1;stroke:#22d521;stroke-width:0.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+      [attr.id]="path10"
+      [attr.cx]= "tag.cx"
+      [attr.cy]= "tag.cy"
+      [attr.r]="1.8816968" />
+  </g>
 </svg>
 
 </div>

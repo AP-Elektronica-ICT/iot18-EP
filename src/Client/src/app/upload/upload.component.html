@@ -1,0 +1,4 @@
+<h1>File Upload</h1>
+<input type="file" (change)="onFileSelected($event)"> 
+<button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="onUpload">Upload</button><br/><br/> 
+<img *ngIf="url" [src]="url" height="400"> 

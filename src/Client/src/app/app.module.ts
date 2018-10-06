@@ -5,13 +5,14 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
+import { UploadComponent } from './upload/upload.component';
+import { HttpClientModule } from '@angular/common/http'
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'map', component: MapComponent },
-  { path: 'settings', component: SettingsComponent},
+  { path: 'upload', component: UploadComponent},
   { path: 'login', component: LoginComponent},
   { path: '',
     redirectTo: '/home',
@@ -23,8 +24,8 @@ const appRoutes: Routes = [
     AppComponent,
     MapComponent,
     HomeComponent,
-    SettingsComponent,
-    LoginComponent
+    LoginComponent,
+    UploadComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
       {enableTracing: true}
     ),
     BrowserModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    HttpClientModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [],
