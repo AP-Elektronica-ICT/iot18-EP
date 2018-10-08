@@ -14,6 +14,7 @@ export class MapComponent implements core.OnInit {
 
 
   constructor(public TagProvider: TagServiceProvider) { 
+    this.loadTags();
   
   }
 
