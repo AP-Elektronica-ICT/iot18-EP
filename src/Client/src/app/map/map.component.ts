@@ -21,6 +21,7 @@ export class MapComponent implements core.OnInit {
     this.TagProvider.getTags()
       .then(data => {
         this.tags = data;
+        console.log(data);
       });
   }
 
@@ -34,7 +35,7 @@ export class MapComponent implements core.OnInit {
 }
 
 export interface ITags {
-  cx: number;
-  cy: number;
-  id :number;
+  XPos: number;
+  YPos: number;
+  TagId :number;
 }

@@ -12,7 +12,7 @@ export class TagServiceProvider {
   
   getTags(): Promise<ITags[]>  { 
     return new Promise(resolve => { 
-      this.http.get<ITags[]>('').subscribe(data => { 
+      this.http.get<ITags[]>('https://iot-ep.azurewebsites.net/api/tags').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -22,7 +22,7 @@ export class TagServiceProvider {
 
   UploadMap(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('', JSON.stringify(data)) 
+      this.http.post('https://iot-ep.azurewebsites.net/api/map', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
