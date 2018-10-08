@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class Measurements
+    public class Coordinate
     {
         public long Id { get; set; }
-        public string AnchorId { get; set; }
         public string TagId { get; set; }
-        public double Distance { get; set; }
+        public int XPos { get; set; }
+        public int YPos { get; set; }
     }
 }
