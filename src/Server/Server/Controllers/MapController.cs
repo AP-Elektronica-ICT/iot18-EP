@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Cors;
 namespace Server.Models
 {
     [Route("api/map")]
-    
+    [EnableCors("AllowAllMethods")]
     public class MapController : Controller
     {
         private readonly DatabaseContext _context;
