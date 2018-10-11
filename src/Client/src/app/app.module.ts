@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http'
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { TagServiceProvider } from './providers/tag-service/tag-service';
 
 const appRoutes: Routes = [
@@ -15,7 +16,11 @@ const appRoutes: Routes = [
   { path: 'map', component: MapComponent },
   { path: 'upload', component: UploadComponent},
   { path: 'login', component: LoginComponent},
-
+  { path: 'changePassword', component: ChangePasswordComponent},
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
 ];
 @NgModule({
   declarations: [
@@ -23,7 +28,8 @@ const appRoutes: Routes = [
     MapComponent,
     HomeComponent,
     LoginComponent,
-    UploadComponent
+    UploadComponent,
+    ChangePasswordComponent 
   ],
   imports: [
     RouterModule.forRoot(
