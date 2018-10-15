@@ -1,6 +1,6 @@
 import * as core from '@angular/core';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
-import { Input, ViewChild } from '@angular/core';
+import { Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 
 
@@ -9,22 +9,31 @@ import { Input, ViewChild } from '@angular/core';
   templateUrl: './map2.0.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements core.OnInit {
+export class MapComponent {
 
   @ViewChild("canvas") canvas;
-  @Input() public width = 800;
-  @Input() public height = 445;
+  @Input() public width = window.innerWidth *  0.6;
+  @Input() public height =this.width/16 *9;
+
   private cx: CanvasRenderingContext2D;
   tags: ITags[];
+  
+  strokeWidth = 5;
 
 
 
   constructor(public TagProvider: TagServiceProvider) {
     this.loadTags();
-    this.drawCircle();
+    this.tags= [
+      {"xPos":50,"yPos":50,"tagId":"0","stroke":5,"id":0},
+      {"xPos":150,"yPos":150,"tagId":"1","stroke":5,"id":1},
+      {"xPos":250,"yPos":250,"tagId":"2","stroke":5,"id":2},
+      {"xPos":350,"yPos":350,"tagId":"3","stroke":5,"id":3},
 
+    ]
   }
 
+ 
   public ngAfterViewInit() {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl.getContext('2d')!;
@@ -38,14 +47,7 @@ export class MapComponent implements core.OnInit {
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = '#000';
     image.onload = () => {
-      var i = 10;
       this.cx.drawImage(image, 0, 0, this.width, this.height);
-      //draw a circle
-      for (var i = 0; i < this.tags.length; i++) {
-        this.cx.beginPath();
-        this.cx.arc(this.tags[i].XPos,this.tags[i].YPos, 10, 0, Math.PI * 2, true);
-        this.cx.stroke();
-      }
     }
     image.src = "assets/images/map.PNG";
 
@@ -53,26 +55,26 @@ export class MapComponent implements core.OnInit {
   loadTags() {
     this.TagProvider.getTags()
       .then(data => {
-        this.tags = data;
-        console.log(data);
+        //this.tags = data;
+        //console.log(this.tags)
       });
   }
 
-  drawCircle() {
-
+  mouseEnter(x){
+     this.tags[x].stroke = 10
+    
   }
 
-
-
-
-  ngOnInit() {
+  mouseLeave(x){
+    this.tags[x].stroke = 5
 
   }
-
 }
 
 export interface ITags {
-  XPos: number;
-  YPos: number;
-  TagId: number;
+  xPos: number;
+  yPos: number;
+  tagId: String;
+  stroke:number
+  id: number;
 }
