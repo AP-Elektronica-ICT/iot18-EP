@@ -11,5 +11,6 @@ namespace Server.Models
         public string TagId { get; set; }
         public int XPos { get; set; }
         public int YPos { get; set; }
+        public int Stroke { get; set; }
     }
 }
