@@ -8,4 +8,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA6bT0DutYtkimagbJgFmVqwAAAAACAAAAAAAQZgAAAAEAACAAAADF9wZoV0dg9NlXRkLAmJsiAT2YTqn7rB8dcdVHyDWRZAAAAAAOgAAAAAIAACAAAACI6Rn6D75hyAz55X3ecstf2x50DRv9nMi6dZMrF6kIeoAAAABmuqUsrPIIcHmDL9DtZJNV56p1of75GZKPcLBQ0rRnRGlE3GI6ZnCAGybOgwQCbFEr7FMX6Pq3PkfhIr15OJ0dkx1k/OKN2S7XFkBsZtLdZblFTLYTnhdM1SyZwKsC+2fVwlXUSBWdQDZaeCbnw9xlGdtWpvLmY82aI3sANASpzEAAAAD6xj8BFxiwjOjB1JfZ3731x7FRgXoY6WwFPK+pWkQBo+rbo3ioS305S01YQMOrmQp7sRwdvR3c0CB4t+Zp4KZl</EncryptedPassword>
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:iot-epdbserver.database.windows.net,1433%3bInitial Catalog=iot-ep_db%3bUser Id=sqladmin%40iot-epdbserver%3bPassword=Test123%2a</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Server.Models.DatabaseContext">
+      <Value>Data Source=tcp:iot-epdbserver.database.windows.net,1433%3bInitial Catalog=iot-ep_db%3bUser Id=sqladmin%40iot-epdbserver%3bPassword=Test123%2a</Value>
+    </EFMigrations>
+  </ItemGroup>
 </Project>

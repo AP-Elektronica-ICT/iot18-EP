@@ -14,7 +14,8 @@ namespace Server.Controllers
     [ApiController]
     [EnableCors("AllowAllMethods")]
     public class TodoController : Controller
-    {private readonly DatabaseContext _context;
+    {
+        private readonly DatabaseContext _context;
         public TodoController(DatabaseContext context)
         {
             _context = context;

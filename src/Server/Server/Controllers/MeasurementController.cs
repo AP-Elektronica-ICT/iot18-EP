@@ -27,9 +27,9 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Measurement item)
+        public IActionResult Create(Measurements item)
         {
-            _context.Measurement.Add(item);
+            _context.Measurements.Add(item);
             _context.SaveChanges();
 
             return CreatedAtRoute("GetMeasurement", new { id = item.Id }, item);
@@ -37,9 +37,9 @@ namespace Server.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Measurement>> GetAll()
+        public ActionResult<List<Measurements>> GetAll()
         {
-            return _context.Measurement.ToList();
+            return _context.Measurements.ToList();
         }
 
 
