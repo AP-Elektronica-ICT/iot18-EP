@@ -24,7 +24,7 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Measurement",
+                name: "Measurements",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -35,7 +35,7 @@ namespace Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Measurement", x => x.Id);
+                    table.PrimaryKey("PK_Measurements", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,7 +59,7 @@ namespace Server.Migrations
                 name: "Coordinate");
 
             migrationBuilder.DropTable(
-                name: "Measurement");
+                name: "Measurements");
 
             migrationBuilder.DropTable(
                 name: "TodoItem");

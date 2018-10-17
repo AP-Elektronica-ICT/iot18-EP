@@ -18,13 +18,13 @@ namespace Server.Models
         {
              
             _context = context;
-            //if (_context.Coordinate.Count() == 0)
-            //{
-            //    _context.Coordinate.Add(new Coordinate { TagId = "1", XPos = 60, YPos = 100, Stroke = 5 });
-            //    _context.Coordinate.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
-            //    _context.Coordinate.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
-            //    _context.SaveChanges();
-            //}
+            if (_context.Coordinate.Count() == 0)
+            {
+                _context.Coordinate.Add(new Coordinate { TagId = "1", XPos = 60, YPos = 100, Stroke = 5 });
+                _context.Coordinate.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
+                _context.Coordinate.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
+                _context.SaveChanges();
+            }
         }
 
 

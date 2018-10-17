@@ -9,7 +9,7 @@ using Server.Models;
 namespace Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20181015085317_AddProperty")]
+    [Migration("20181017092917_AddProperty")]
     partial class AddProperty
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Measurement");
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("Server.Models.TodoItem", b =>
