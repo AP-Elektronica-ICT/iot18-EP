@@ -11,6 +11,6 @@ namespace Server.Models
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
         public DbSet<TodoItem> TodoItem { get; set; }
         public DbSet<Coordinate> Coordinate { get; set; }
-        public DbSet<Measurement> Measurement { get; set; }
+        public DbSet<Measurements> Measurements { get; set; }
     }      
 }

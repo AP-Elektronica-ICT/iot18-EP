@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 
@@ -10,6 +11,8 @@ using Server.Models;
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
+    [EnableCors("AllowAllMethods")]
     public class TodoController : Controller
     {
         private readonly DatabaseContext _context;
@@ -22,6 +25,7 @@ namespace Server.Controllers
                 _context.SaveChanges();
             }
         }
+        
 
         [HttpPost]
         public IActionResult Create(TodoItem item)

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
   <IisApp path="D:\Schools\IOT\iot1819--iot18-ep\src\Server\Server\obj\Release\netcoreapp2.1\PubTmp\Out\" />
+  <dbfullsql path="D:\Schools\IOT\iot1819--iot18-ep\src\Server\Server\obj\Release\netcoreapp2.1\PubTmp\EFSQLScripts\Server.Models.DatabaseContext.sql" />
 </sitemanifest>

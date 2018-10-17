@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Server.Models;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Server
 {
@@ -27,8 +28,12 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(opt =>
-                opt.UseInMemoryDatabase("TodoList"));
+          
+                services.AddDbContext<DatabaseContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<DatabaseContext>().Database.Migrate();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(options => {
                 options.AddPolicy("AllowAllMethods",
@@ -52,10 +57,12 @@ namespace Server
             {
                 app.UseHsts();
             }
+            
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseCors("AllowSpecifcOrigin");
+            app.UseCors("AllowAllMethods");
             
 
         }
