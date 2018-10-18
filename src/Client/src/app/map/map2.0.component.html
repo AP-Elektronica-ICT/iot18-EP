@@ -6,12 +6,10 @@
                 [attr.cx]="tag.xPos" [attr.cy]="tag.yPos" [attr.r]="tag.stroke" stroke="green" stroke-width="2" fill="yellow" />
 </svg>
 
-<div *ngIf="show && top && left"  id="difke" [style.marginTop.px]="top" [style.marginLeft.px]="left">
+<div  id="difke" *ngIf=" show && top && left"   [style.marginTop.px]="top" [style.marginLeft.px]="left">
         <h3>Short summary</h3>
         <p>
-          Temperature:{{info}} <br>
-          CO: <br>
-          Humidity: <br>
+          id:{{info}}
         </p>
       </div>
 

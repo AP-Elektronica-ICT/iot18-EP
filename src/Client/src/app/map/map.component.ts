@@ -1,6 +1,6 @@
 import * as core from '@angular/core';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
-import { Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Input, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { TargetLocator } from 'selenium-webdriver';
 
 
@@ -12,10 +12,11 @@ import { TargetLocator } from 'selenium-webdriver';
 export class MapComponent {
 
   @ViewChild("canvas") canvas;
+  @ViewChild('difke') myDiv: ElementRef;
   @Input() public width = window.innerWidth * 0.6;
   @Input() public height = this.width / 16 * 9;
-  w = window.innerWidth
-  h = window.innerHeight
+  totalw = window.innerWidth
+  totalh = window.innerHeight
 
 
   private cx: CanvasRenderingContext2D;
@@ -24,6 +25,7 @@ export class MapComponent {
   info: String;
   top = 0;
   left = 0;
+  test = 0;
 
 
   strokeWidth = 5;
@@ -54,6 +56,7 @@ export class MapComponent {
 
     canvasEl.width = this.width;
     canvasEl.height = this.height;
+    this.test = canvasEl.offsetTop
 
     this.cx.lineWidth = 3;
     this.cx.lineCap = 'round';
@@ -62,6 +65,7 @@ export class MapComponent {
       this.cx.drawImage(image, 0, 0, this.width, this.height);
     }
     image.src = "assets/images/map.PNG";
+
 
   }
   loadTags() {
@@ -76,12 +80,11 @@ export class MapComponent {
     this.tags[x].stroke = 10
     //this.left = event.clientX;
     //this.top = event.clientY;
-    this.left = this.tags[x].xPos +(this.w-this.width)/2
-    this.top = this.tags[x].yPos  -document.body.clientHeight
-    console.log(this.left)
-    console.log(this.top)
+    this.left = this.tags[x].xPos +(this.totalw-this.width)/2
+    this.top = this.tags[x].yPos + (((this.totalh-this.height)/2)-document.body.clientHeight)
     this.info = String(this.tags[x].id)
     this.show = true;
+ 
 
 
   }
