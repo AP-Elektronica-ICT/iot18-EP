@@ -12,5 +12,6 @@ namespace Server.Models
         public DbSet<TodoItem> TodoItem { get; set; }
         public DbSet<Coordinate> Coordinate { get; set; }
         public DbSet<Measurements> Measurements { get; set; }
+        public DbSet<Tags> Tags { get; set; }
     }      
 }
