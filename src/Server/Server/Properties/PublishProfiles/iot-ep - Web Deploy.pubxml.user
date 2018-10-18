@@ -10,7 +10,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <EFMigrations Include="Server.Models.DatabaseContext">
-      <Value>Data Source=tcp:iot-epdbserver.database.windows.net,1433%3bInitial Catalog=IOT%3bUser Id=sqladmin%40iot-epdbserver%3bPassword=Test123%2a</Value>
+      <Value>Data Source=tcp:iot-epdbserver.database.windows.net,1433%3bInitial Catalog=iot-ep_db%3bUser Id=sqladmin%40iot-epdbserver%3bPassword=Test123%2a</Value>
     </EFMigrations>
   </ItemGroup>
 </Project>

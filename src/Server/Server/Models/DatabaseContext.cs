@@ -13,5 +13,6 @@ namespace Server.Models
         public DbSet<Coordinate> Coordinate { get; set; }
         public DbSet<Measurements> Measurements { get; set; }
         public DbSet<Tags> Tags { get; set; }
+        public DbSet<Anchors> Anchors { get; set; }
     }      
 }
