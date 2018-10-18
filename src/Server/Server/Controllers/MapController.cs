@@ -12,9 +12,11 @@ namespace Server.Models
     [EnableCors("AllowAllMethods")]
     public class MapController : Controller
     {
+        
         private readonly DatabaseContext _context;
         public MapController(DatabaseContext context)
         {
+             
             _context = context;
             if (_context.Coordinate.Count() == 0)
             {
@@ -25,10 +27,22 @@ namespace Server.Models
             }
         }
 
+
+
         [HttpGet]
         public ActionResult<List<Coordinate>> GetAll()
         {
+
             return _context.Coordinate.ToList();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Coordinate item)
+        {
+            _context.Coordinate.Add(item);
+            _context.SaveChanges();
+
+            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
         }
 
 

@@ -3,4 +3,7 @@
   <parameter name="IIS Web Application Name" description="" value="iot-ep" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Schools\\IOT\\iot1819--iot18-ep\\src\\Server\\Server\\obj\\Release\\netcoreapp2\.1\\PubTmp\\Out\\$" />
   </parameter>
+  <parameter name="Server.Models.DatabaseContext" description="" value="Data Source=tcp:iot-epdbserver.database.windows.net,1433;Initial Catalog=IOT;User Id=sqladmin@iot-epdbserver;Password=Test123*" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^D:\\Schools\\IOT\\iot1819--iot18-ep\\src\\Server\\Server\\obj\\Release\\netcoreapp2\.1\\PubTmp\\EFSQLScripts\\Server\.Models\.DatabaseContext\.sql$" />
+  </parameter>
 </parameters>
