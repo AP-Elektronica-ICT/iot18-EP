@@ -37,13 +37,13 @@ export class MapComponent {
   constructor(public TagProvider: TagServiceProvider) {
     this.loadTags();
 
-    this.tags = [
+   /* this.tags = [
       { "xPos": 50, "yPos": 50, "tagId": "0", "stroke": 5, "id": 0 },
       { "xPos": 150, "yPos": 150, "tagId": "1", "stroke": 5, "id": 1 },
       { "xPos": 250, "yPos": 250, "tagId": "2", "stroke": 5, "id": 2 },
       { "xPos": 350, "yPos": 350, "tagId": "3", "stroke": 5, "id": 3 },
 
-    ]
+    ]*/
 
   }
 
@@ -71,18 +71,16 @@ export class MapComponent {
   loadTags() {
     this.TagProvider.getTags()
       .then(data => {
-        //this.tags = data;
+        this.tags = data;
         console.log(this.tags)
       });
   }
 
-  mouseEnter(x, event: MouseEvent): void {
-    this.tags[x].stroke = 10
-    //this.left = event.clientX;
-    //this.top = event.clientY;
-    this.left = this.tags[x].xPos +(this.totalw-this.width)/2
-    this.top = this.tags[x].yPos + (((this.totalh-this.height)/2)-document.body.clientHeight)
-    this.info = String(this.tags[x].id)
+  mouseEnter(x) {
+    this.tags[x-1].stroke = 10
+    this.left = this.tags[x-1].xPos +(this.totalw-this.width)/2
+    this.top = this.tags[x-1].yPos + (((this.totalh-this.height)/2)-document.body.clientHeight)
+    this.info = String(this.tags[x-1].id)
     this.show = true;
  
 
@@ -90,7 +88,7 @@ export class MapComponent {
   }
 
   mouseLeave(x) {
-    this.tags[x].stroke = 5
+    this.tags[x-1].stroke = 5
     this.show = false;
 
   }
