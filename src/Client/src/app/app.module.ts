@@ -10,12 +10,14 @@ import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http'
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { TagServiceProvider } from './providers/tag-service/tag-service';
+import { TagsComponent } from './tags/tags.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'map', component: MapComponent },
   { path: 'upload', component: UploadComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'tags', component: TagsComponent},
   { path: 'changePassword', component: ChangePasswordComponent},
   { path: '',
     redirectTo: '/home',
@@ -29,7 +31,8 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     UploadComponent,
-    ChangePasswordComponent 
+    ChangePasswordComponent,
+    TagsComponent 
   ],
   imports: [
     RouterModule.forRoot(
