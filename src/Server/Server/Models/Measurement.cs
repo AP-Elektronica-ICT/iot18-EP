@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class Measurements
+    public class Measurement
     {
         public long Id { get; set; }
         public string AnchorMac { get; set; }

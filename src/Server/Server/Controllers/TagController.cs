@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
+using Server.DatabaseSettings;
 
 
 namespace Server.Controllers
@@ -28,9 +29,9 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Tags item)
+        public IActionResult Create(Tag item)
         {
-            _context.Tags.Add(item);
+            _context.Tag.Add(item);
 
             if (_context.SaveChanges() > 0)
                 return Ok();
@@ -40,9 +41,9 @@ namespace Server.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Tags>> GetAll()
+        public ActionResult<List<Tag>> GetAll()
         {
-            return _context.Tags.ToList();
+            return _context.Tag.ToList();
         }
     }
 }

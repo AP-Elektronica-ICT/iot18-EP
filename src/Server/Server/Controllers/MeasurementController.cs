@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
+using Server.DatabaseSettings;
 
 namespace Server.Controllers
 {
@@ -27,9 +28,9 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Measurements item)
+        public IActionResult Create(Measurement item)
         {
-            _context.Measurements.Add(item);
+            _context.Measurement.Add(item);
 
             if (_context.SaveChanges() > 0)
                 return Ok();
@@ -39,9 +40,9 @@ namespace Server.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Measurements>> GetAll()
+        public ActionResult<List<Measurement>> GetAll()
         {
-            return _context.Measurements.ToList();
+            return _context.Measurement.ToList();
         }
 
 

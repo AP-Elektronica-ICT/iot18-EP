@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Microsoft.AspNetCore.Cors;
+using Server.DatabaseSettings;
 
 namespace Server.Models
 {
