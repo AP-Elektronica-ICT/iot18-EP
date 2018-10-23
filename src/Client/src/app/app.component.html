@@ -1,0 +1,28 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark indigo">
+    <a class="navbar-brand" >Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link"routerLink="/home">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/map">Map</a>
+        </li>
+        <li class="nav-item dropdown" dropdown>
+            <a dropdownToggle  class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            Settings<span class="caret"></span></a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                <a class="dropdown-item waves-light"  routerLink="/upload" >Upload</a>
+                <a class="dropdown-item waves-light"  routerLink="/changePassword" >Change Passowçrd</a>
+                <a class="dropdown-item waves-light"  routerLink="/tags" >Tags</a>
+            </div>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/login">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
