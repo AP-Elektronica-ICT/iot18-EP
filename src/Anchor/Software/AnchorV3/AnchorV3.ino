@@ -1,5 +1,21 @@
 #include <SPI.h>
 #include <DW1000.h>
+#include <EtherCard.h>
+
+
+//Ethernet 
+static byte mymac[] = { 0x74, 0x69, 0x69, 0x2D, 0x30, 0x31 };
+static byte myip[] = { 192, 168, 3, 3 }; //IP
+static byte gwip[] = { 192, 168, 3, 2 }; //Gateway
+static byte hisip[] = { 192, 168, 3, 2   }; //Destination
+const char website[] PROGMEM = "192.168.3.2"; //Destination
+byte Ethernet::buffer[300];   // a very small tcp/ip buffer is enough here
+Stash stash;
+static long timer;
+static byte session;
+
+
+
 // connection pins
 const uint8_t PIN_RST = 9; // reset pin
 const uint8_t PIN_IRQ = 2; // irq pin
@@ -41,6 +57,58 @@ uint16_t successRangingCount = 0;
 uint32_t rangingCountPeriod = 0;
 float samplingRate = 0;
 
+void sendPacket() {
+  byte sd = stash.create();
+  const char data[] = "datahierrr";
+  stash.print("jsonshizzle");
+  stash.println(data);
+  stash.save();
+  int stash_size = stash.size();
+
+  Stash::prepare(PSTR("POST http://$F/anchor/data/api.php HTTP/1.0" "\r\n"
+    "Content-Length: $D" "\r\n"
+    "\r\n"
+    "$H"),
+  website, website, stash_size, sd);
+
+  // send the packet - this also releases all stash buffers once done
+  // Save the session ID so we can watch for it in the main loop.
+  session = ether.tcpSend();
+
+  
+
+  /*
+  byte sd = stash.create();
+  stash.print("{");
+  
+  stash.print("\"var1\":");
+  stash.print("\"ans1\"");
+
+  stash.print(",");
+
+  stash.print("\"var2\":");
+  stash.print("\"ans2\"");
+
+  
+  
+  stash.print("}");
+  stash.save();
+  Stash::prepare(PSTR("POST http://$F:80/ HTTP/1.1" "\r\n"
+                      "Host: $F:80" "\r\n"
+                       "Content-Length: $D" "\r\n"
+                       "\r\n"
+                       "$H"),
+                 website, website, stash.size(), sd);
+  ether.tcpSend();*/
+
+
+
+
+  
+  Serial.println("Packet Send");
+}
+
+
 void setup() {
   // DEBUG monitoring
   Serial.begin(115200);
@@ -76,6 +144,15 @@ void setup() {
   noteActivity();
   // for first time ranging frequency computation
   rangingCountPeriod = millis();
+
+  // Ethernet
+  if (ether.begin(sizeof Ethernet::buffer, mymac) == 0)
+    Serial.println( "Failed to access Ethernet controller");
+
+  ether.staticSetup(myip, gwip);
+  ether.copyIp(ether.hisip, hisip);
+  ether.printIp("Server: ", ether.hisip);
+
 }
 
 void noteActivity() {
@@ -247,6 +324,19 @@ void loop() {
 
       noteActivity();
     }
+  }
+
+  ether.packetLoop(ether.packetReceive());
+
+  const char* reply = ether.tcpReply(session);
+  if (reply != 0) {
+    Serial.println("Got a response!");
+    Serial.println(reply);
+  }
+
+  if (millis() > timer + 3000) {
+    timer = millis();
+    sendPacket();
   }
 }
 
