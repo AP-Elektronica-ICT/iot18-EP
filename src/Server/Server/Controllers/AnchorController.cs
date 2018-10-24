@@ -44,5 +44,21 @@ namespace Server.Controllers
         {
             return _context.Anchor.ToList();
         }
+
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult Delete(long id)
+        {
+            var anchor = _context.Anchor.Find(id);
+            if (anchor == null)
+                return NotFound();
+
+            _context.Anchor.Remove(anchor);
+            _context.SaveChanges();
+            return Ok();
+
+
+
+        }
     }
 }
