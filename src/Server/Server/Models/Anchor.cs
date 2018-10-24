@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class Tags
+    public class Anchor 
     {
         public long Id { get; set; }
         public string Mac { get; set; }

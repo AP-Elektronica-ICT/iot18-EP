@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Server.Models;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Server.DatabaseSettings;
 
 namespace Server
 {
@@ -39,7 +40,7 @@ namespace Server
                 options.AddPolicy("AllowAllMethods",
                 builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                 });
             });
 
@@ -49,6 +50,8 @@ namespace Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            app.UseCors("AllowAllMethods");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,7 +65,6 @@ namespace Server
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseCors("AllowAllMethods");
             
 
         }

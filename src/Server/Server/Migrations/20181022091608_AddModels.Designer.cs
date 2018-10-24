@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Server.Models;
+using Server.DatabaseSettings;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20181018165109_AddTags")]
-    partial class AddTags
+    [Migration("20181022091608_AddModels")]
+    partial class AddModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Server.Models.Anchors", b =>
+            modelBuilder.Entity("Server.Models.Anchor", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,7 +30,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Anchors");
+                    b.ToTable("Anchor");
                 });
 
             modelBuilder.Entity("Server.Models.Coordinate", b =>
@@ -52,7 +52,7 @@ namespace Server.Migrations
                     b.ToTable("Coordinate");
                 });
 
-            modelBuilder.Entity("Server.Models.Measurements", b =>
+            modelBuilder.Entity("Server.Models.Measurement", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,10 +66,10 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Measurements");
+                    b.ToTable("Measurement");
                 });
 
-            modelBuilder.Entity("Server.Models.Tags", b =>
+            modelBuilder.Entity("Server.Models.Tag", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("Server.Models.TodoItem", b =>

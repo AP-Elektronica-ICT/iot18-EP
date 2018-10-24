@@ -76,6 +76,10 @@ export class MapComponent {
       });
   }
 
+  divEnter(){
+    console.log("test")
+  }
+
   mouseEnter(x) {
     this.tags[x-1].stroke = 10
     this.left = this.tags[x-1].xPos +(this.totalw-this.width)/2
@@ -100,7 +104,7 @@ export class MapComponent {
 export interface ITags {
   xPos: number;
   yPos: number;
-  tagId: String;
+  mac: String;
   stroke: number
   id: number;
 }

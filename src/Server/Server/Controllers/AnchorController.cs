@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
+using Server.DatabaseSettings;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/anchors")]
     [ApiController]
     [EnableCors("AllowAllMethods")]
     public class AnchorController : Controller
@@ -27,9 +28,9 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Anchors item)
+        public IActionResult Create(Anchor item)
         {
-            _context.Anchors.Add(item);
+            _context.Anchor.Add(item);
 
             if (_context.SaveChanges() > 0)
                 return Ok();
@@ -39,9 +40,23 @@ namespace Server.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Anchors>> GetAll()
+        public ActionResult<List<Anchor>> GetAll()
         {
-            return _context.Anchors.ToList();
+            return _context.Anchor.ToList();
+        }
+
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult Delete(long id)
+        {
+            var anchor = _context.Anchor.Find(id);
+            if (anchor == null)
+                return NotFound();
+
+            _context.Anchor.Remove(anchor);
+            _context.SaveChanges();
+            return Ok();
+
         }
     }
 }

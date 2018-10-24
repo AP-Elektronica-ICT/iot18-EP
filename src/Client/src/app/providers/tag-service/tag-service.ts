@@ -20,6 +20,28 @@ export class TagServiceProvider {
     }); 
   } 
 
+  addTag(data) { 
+    return new Promise((resolve) => { 
+      this.http.post('https://iot-ep.azurewebsites.net/api/add', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }  
+
+  eleteTag(data) { 
+    return new Promise((resolve) => { 
+      this.http.post('https://iot-ep.azurewebsites.net/api/delete', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  } 
+
   UploadMap(data) { 
     return new Promise((resolve, reject) => { 
       this.http.post('https://iot-ep.azurewebsites.net/api/getmap', JSON.stringify(data)) 
