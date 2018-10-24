@@ -45,5 +45,18 @@ namespace Server.Controllers
         {
             return _context.Tag.ToList();
         }
+
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult Delete(long id)
+        {
+            var tag = _context.Tag.Find(id);
+            if (tag == null)
+                return NotFound();
+
+            _context.Tag.Remove(tag);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
