@@ -12028,9 +12028,6 @@ Used in manufacturing several products at SparkFun.
 <part name="R11" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="330"/>
 <part name="R12" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="330"/>
 <part name="R13" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="330"/>
-<part name="R14" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="330"/>
-<part name="R15" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="330"/>
-<part name="R16" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="330"/>
 <part name="J4" library="SparkFun-Connectors" deviceset="POWER_JACK" device=""/>
 <part name="U$1" library="1484249208697-powermodules" deviceset="DC-DC-STEP-DOWN-LM2596" device="" value="DC-STEPDOWN"/>
 <part name="GND15" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -12218,12 +12215,12 @@ Used in manufacturing several products at SparkFun.
 <instance part="GND9" gate="1" x="325.12" y="81.28">
 <attribute name="VALUE" x="322.58" y="78.74" size="1.778" layer="96"/>
 </instance>
-<instance part="R9" gate="G$1" x="497.84" y="137.16" rot="R90">
-<attribute name="NAME" x="496.3414" y="133.35" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="501.142" y="133.35" size="1.778" layer="96" rot="R90"/>
+<instance part="R9" gate="G$1" x="482.6" y="137.16" rot="R90">
+<attribute name="NAME" x="481.1014" y="133.35" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="485.902" y="133.35" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND10" gate="1" x="497.84" y="127">
-<attribute name="VALUE" x="495.3" y="124.46" size="1.778" layer="96"/>
+<instance part="GND10" gate="1" x="482.6" y="127">
+<attribute name="VALUE" x="480.06" y="124.46" size="1.778" layer="96"/>
 </instance>
 <instance part="C7" gate="G$1" x="10.16" y="116.84" rot="R180">
 <attribute name="NAME" x="8.636" y="116.459" size="1.778" layer="95" rot="R180"/>
@@ -12268,18 +12265,6 @@ Used in manufacturing several products at SparkFun.
 <instance part="R13" gate="G$1" x="35.56" y="106.68" rot="R180">
 <attribute name="NAME" x="43.18" y="108.7374" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="32.512" y="108.712" size="1.778" layer="96" rot="R180"/>
-</instance>
-<instance part="R14" gate="G$1" x="474.98" y="142.24" rot="R180">
-<attribute name="NAME" x="472.186" y="144.2974" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="482.092" y="144.272" size="1.778" layer="96" rot="R180"/>
-</instance>
-<instance part="R15" gate="G$1" x="474.98" y="139.7" rot="R180">
-<attribute name="NAME" x="472.186" y="141.7574" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="482.092" y="141.732" size="1.778" layer="96" rot="R180"/>
-</instance>
-<instance part="R16" gate="G$1" x="474.98" y="137.16" rot="R180">
-<attribute name="NAME" x="472.186" y="139.2174" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="482.092" y="139.192" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="J4" gate="G$1" x="60.96" y="157.48">
 <attribute name="VALUE" x="50.8" y="167.64" size="1.778" layer="96" font="vector"/>
@@ -12499,7 +12484,7 @@ Used in manufacturing several products at SparkFun.
 <segment>
 <pinref part="GND10" gate="1" pin="GND"/>
 <pinref part="R9" gate="G$1" pin="1"/>
-<wire x1="497.84" y1="129.54" x2="497.84" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="482.6" y1="129.54" x2="482.6" y2="132.08" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND11" gate="1" pin="GND"/>
@@ -12781,9 +12766,9 @@ Used in manufacturing several products at SparkFun.
 <label x="363.22" y="63.5" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="R16" gate="G$1" pin="1"/>
-<wire x1="480.06" y1="137.16" x2="492.76" y2="137.16" width="0.1524" layer="91"/>
-<label x="492.76" y="137.16" size="1.778" layer="95" rot="MR0"/>
+<label x="477.52" y="137.16" size="1.778" layer="95" rot="MR0"/>
+<pinref part="U$2" gate="G$1" pin="MOSI"/>
+<wire x1="462.28" y1="137.16" x2="477.52" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MISO2" class="0">
@@ -12798,9 +12783,9 @@ Used in manufacturing several products at SparkFun.
 <label x="365.76" y="63.5" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="R15" gate="G$1" pin="1"/>
-<wire x1="480.06" y1="139.7" x2="492.76" y2="139.7" width="0.1524" layer="91"/>
-<label x="492.76" y="139.7" size="1.778" layer="95" rot="MR0"/>
+<label x="477.52" y="139.7" size="1.778" layer="95" rot="MR0"/>
+<pinref part="U$2" gate="G$1" pin="MISO"/>
+<wire x1="462.28" y1="139.7" x2="477.52" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCK2" class="0">
@@ -12815,9 +12800,9 @@ Used in manufacturing several products at SparkFun.
 <label x="393.7" y="101.6" size="1.778" layer="95" rot="MR0"/>
 </segment>
 <segment>
-<pinref part="R14" gate="G$1" pin="1"/>
-<wire x1="480.06" y1="142.24" x2="492.76" y2="142.24" width="0.1524" layer="91"/>
-<label x="492.76" y="142.24" size="1.778" layer="95" rot="MR0"/>
+<label x="477.52" y="142.24" size="1.778" layer="95" rot="MR0"/>
+<pinref part="U$2" gate="G$1" pin="CLK"/>
+<wire x1="462.28" y1="142.24" x2="477.52" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RST2" class="0">
@@ -12897,12 +12882,12 @@ Used in manufacturing several products at SparkFun.
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="IRQ"/>
-<wire x1="462.28" y1="144.78" x2="497.84" y2="144.78" width="0.1524" layer="91"/>
+<wire x1="462.28" y1="144.78" x2="482.6" y2="144.78" width="0.1524" layer="91"/>
 <pinref part="R9" gate="G$1" pin="2"/>
-<wire x1="497.84" y1="142.24" x2="497.84" y2="144.78" width="0.1524" layer="91"/>
-<junction x="497.84" y="144.78"/>
-<wire x1="497.84" y1="144.78" x2="502.92" y2="144.78" width="0.1524" layer="91"/>
-<label x="502.92" y="144.78" size="1.778" layer="95" rot="MR0"/>
+<wire x1="482.6" y1="142.24" x2="482.6" y2="144.78" width="0.1524" layer="91"/>
+<junction x="482.6" y="144.78"/>
+<wire x1="482.6" y1="144.78" x2="490.22" y2="144.78" width="0.1524" layer="91"/>
+<label x="490.22" y="144.78" size="1.778" layer="95" rot="MR0"/>
 </segment>
 </net>
 <net name="CS2" class="0">
@@ -12913,8 +12898,8 @@ Used in manufacturing several products at SparkFun.
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="CS"/>
-<wire x1="462.28" y1="134.62" x2="492.76" y2="134.62" width="0.1524" layer="91"/>
-<label x="492.76" y="134.62" size="1.778" layer="95" rot="MR0"/>
+<wire x1="462.28" y1="134.62" x2="477.52" y2="134.62" width="0.1524" layer="91"/>
+<label x="477.52" y="134.62" size="1.778" layer="95" rot="MR0"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -13078,27 +13063,6 @@ Used in manufacturing several products at SparkFun.
 <pinref part="R22" gate="G$1" pin="2"/>
 <wire x1="434.34" y1="111.76" x2="421.64" y2="111.76" width="0.1524" layer="91"/>
 <label x="421.64" y="111.76" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="N$16" class="0">
-<segment>
-<pinref part="R14" gate="G$1" pin="2"/>
-<pinref part="U$2" gate="G$1" pin="CLK"/>
-<wire x1="469.9" y1="142.24" x2="462.28" y2="142.24" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$17" class="0">
-<segment>
-<pinref part="R15" gate="G$1" pin="2"/>
-<pinref part="U$2" gate="G$1" pin="MISO"/>
-<wire x1="469.9" y1="139.7" x2="462.28" y2="139.7" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$18" class="0">
-<segment>
-<pinref part="R16" gate="G$1" pin="2"/>
-<pinref part="U$2" gate="G$1" pin="MOSI"/>
-<wire x1="469.9" y1="137.16" x2="462.28" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$19" class="0">
