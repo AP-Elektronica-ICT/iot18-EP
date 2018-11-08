@@ -31,6 +31,7 @@ export class UploadComponent {
   }
 
   onUpload() {
+    console.log(this.selectedFile)
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name);
     this.TagProvider.UploadMap(fd)
