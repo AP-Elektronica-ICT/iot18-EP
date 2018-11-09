@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
 import { ITags } from '../map/map.component';
-
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
@@ -13,11 +12,11 @@ hide=true;
 deleteTag
 
   constructor(public TagProvider: TagServiceProvider) { 
-        this.tags = [
-      { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5, "id": 0 },
-      { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1 },
-      { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 },
-      { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 },
+    this.tags = [
+      { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
+      { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
+      { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
+      { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
 
     ]
   }

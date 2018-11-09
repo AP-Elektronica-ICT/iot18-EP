@@ -37,13 +37,13 @@ export class MapComponent {
   constructor(public TagProvider: TagServiceProvider) {
     this.loadTags();
 
-   /* this.tags = [
-      { "xPos": 50, "yPos": 50, "tagId": "0", "stroke": 5, "id": 0 },
-      { "xPos": 150, "yPos": 150, "tagId": "1", "stroke": 5, "id": 1 },
-      { "xPos": 250, "yPos": 250, "tagId": "2", "stroke": 5, "id": 2 },
-      { "xPos": 350, "yPos": 350, "tagId": "3", "stroke": 5, "id": 3 },
+    this.tags = [
+      { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
+      { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
+      { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
+      { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
 
-    ]*/
+    ]
 
   }
 
@@ -107,4 +107,5 @@ export interface ITags {
   mac: String;
   stroke: number
   id: number;
+  description: String;
 }
