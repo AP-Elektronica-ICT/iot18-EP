@@ -9,41 +9,47 @@ import { TagServiceProvider } from '../providers/tag-service/tag-service';
 })
 export class UploadComponent {
 
-  selectedFile: File = null;
-  url = '';
+  file:any;
+  test:any
 
 
   constructor(public TagProvider: TagServiceProvider) {
-
   }
 
 
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
+
+  onUploadChange(event: any) {
+    this.file = event.target.files[0]
+  var reader = new FileReader();
+  reader.readAsDataURL(event.target.files[0]);
+  reader.onload = (event) => {
+   this.test = (<FileReader>event.target).result;
+
+  }
+}
+  
+  handleReaderLoaded(e) {
+    console.log('data:image/png;base64,' + btoa(e.target.result));
+    this.TagProvider.uploadMap('data:image/png;base64,' + btoa(e.target.result))
+    .then(data => {
+      if (data) {
+        console.log("succes")
       }
-      reader.readAsDataURL(event.target.files[0]);
+      else {
+        console.log("fail")
+      }
+    });
+  }
+
+  upload(){
+    if (this.file) {
+      const reader = new FileReader();
+  
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(this.file);
     }
-
   }
 
-  onUpload() {
-    console.log(this.selectedFile)
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.TagProvider.UploadMap(fd)
-      .then(data => {
-        if (data) {
-          console.log("succes")
-        }
-        else {
-          console.log("mislukt")
-        }
-      });
-  }
 
 
 }

@@ -11,13 +11,13 @@
 </div>
 
 <div class="deleteCard">
-  <div class="card" style="width: 20rem;">
+  <div class="card" style="width: 30rem;">
     <div class="card-body">
       <h1 class="card-title">Delete Tag</h1>
       <label>
         <span *ngFor="let tag of tags">
           <ul class="list-group">
-            <a (click)="selectedTag(tag.id)" class="list-group-item">TagId:{{tag.id}}</a>
+            <a (click)="selectedTag(tag.id)" class="list-group-item">TagId:{{tag.id}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description : {{tag.description}}</a>
           </ul>
         </span>
       </label><br/>
