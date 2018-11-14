@@ -6,7 +6,7 @@ import { TargetLocator } from 'selenium-webdriver';
 
 @core.Component({
   selector: 'app-map',
-  templateUrl: './map2.0.component.html',
+  templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
@@ -29,6 +29,7 @@ export class MapComponent {
   test = 0;
   blob:any;
   imageBase64:any;
+  timer:any;
 
 
   strokeWidth = 5;
@@ -47,12 +48,33 @@ export class MapComponent {
       { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
 
     ]
-
-     
-
-    
-
+    this.startTimer();
   }
+
+  startTimer() {
+      
+    this.timer = setTimeout(x => {
+      console.log("timer");
+      //this.tags=null;
+      this.tags = [
+        { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
+        { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
+        { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
+        { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
+  
+      ]
+      /*this.TagProvider.getTags()
+      .then(data => {
+        this.tags = data;
+        console.log(this.tags)
+      });*/
+    
+    this.startTimer();
+    }, 1000);
+
+
+
+}
 
   dataURItoBlob(dataURI) {
     const byteString = atob(dataURI);
@@ -119,6 +141,8 @@ export class MapComponent {
     this.show = false;
 
   }
+
+  
 
 
 
