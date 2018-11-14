@@ -1,8 +1,6 @@
 import * as core from '@angular/core';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
-import { Input, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { TargetLocator } from 'selenium-webdriver';
-
+import { Input, ViewChild, ElementRef } from '@angular/core';
 
 @core.Component({
   selector: 'app-map',
@@ -21,7 +19,7 @@ export class MapComponent {
 
   private cx: CanvasRenderingContext2D;
   tags: ITags[];
-  show: boolean;
+  show= false;
   info: String;
   description: String;
   top = 0;
@@ -30,6 +28,9 @@ export class MapComponent {
   blob:any;
   imageBase64:any;
   timer:any;
+  value: number = 100;
+  delay=50;
+
 
 
   strokeWidth = 5;
@@ -42,12 +43,13 @@ export class MapComponent {
     this.loadData();
 
     this.tags = [
-      { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
-      { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
-      { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
-      { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
+      { "xPos": 50, "yPos": 50, "mac": "1", "stroke": 5 , "id": 1 ,"description" : "" },
+      { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description" : "" },
+      { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
+      { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4 , "description" : ""},
 
     ]
+    
     this.startTimer();
   }
 
@@ -58,10 +60,10 @@ export class MapComponent {
       console.log("timer");
       //this.tags=null;
       this.tags = [
-        { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
-        { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
-        { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
-        { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
+        { "xPos": 50, "yPos": 50, "mac": "1", "stroke": 5 , "id": 1 ,"description" : "" },
+        { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description" : "" },
+        { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
+        { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4 , "description" : ""},
   
       ]
       /*this.TagProvider.getTags()
@@ -70,12 +72,18 @@ export class MapComponent {
         console.log(this.tags)
       });*/
     
-    this.startTimer();
+    
     }
-    }, 1000);
+    this.startTimer();
+    }, this.delay*1000);
 
 
 
+}
+
+rangeChanged(interval){
+ this.delay = interval
+ console.log(this.delay)
 }
 
   dataURItoBlob(dataURI) {
