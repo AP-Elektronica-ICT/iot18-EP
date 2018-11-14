@@ -54,6 +54,7 @@ export class MapComponent {
   startTimer() {
       
     this.timer = setTimeout(x => {
+      if(this.show == false){
       console.log("timer");
       //this.tags=null;
       this.tags = [
@@ -70,6 +71,7 @@ export class MapComponent {
       });*/
     
     this.startTimer();
+    }
     }, 1000);
 
 
