@@ -6,6 +6,13 @@
     [attr.cy]="tag.yPos" [attr.r]="tag.stroke" stroke="green" stroke-width="2" fill="yellow" />
 </svg>
 
+<p>interval voor refresh is {{delay}}</p>
+<div class="slidecontainer">
+    <label >1</label>
+  <input type="range" (input)="rangeChanged($event.target.value)" min="1" max="300" pin="true" value="50" class="slider" id="myRange">
+  <label >300</label>
+</div>
+
 <div id="difke" *ngIf=" show && top && left" (mouseenter)='difEnter()' [style.marginTop.px]="top" [style.marginLeft.px]="left">
   <h3>Short summary</h3>
   <p>
@@ -14,6 +21,7 @@
   </p>
 </div>
 
-<form class="my-3 w-25">
-  <mdb-range-input id="range" min="1" value="50" max="100"></mdb-range-input>
-</form>
+
+
+
+
