@@ -1,0 +1,19 @@
+<canvas id="myCanvas" #canvas>
+
+</canvas>
+<svg [attr.height]="height" [attr.width]="width" fill="red">
+  <circle *ngFor="let tag of tags" (mouseenter)="mouseEnter(tag.id)" (mouseleave)="mouseLeave(tag.id)" [attr.cx]="tag.xPos"
+    [attr.cy]="tag.yPos" [attr.r]="tag.stroke" stroke="green" stroke-width="2" fill="yellow" />
+</svg>
+
+<div id="difke" *ngIf=" show && top && left" (mouseenter)='difEnter()' [style.marginTop.px]="top" [style.marginLeft.px]="left">
+  <h3>Short summary</h3>
+  <p>
+    id:{{info}}
+    info:{{description}}
+  </p>
+</div>
+
+<form class="my-3 w-25">
+  <mdb-range-input id="range" min="1" value="50" max="100"></mdb-range-input>
+</form>

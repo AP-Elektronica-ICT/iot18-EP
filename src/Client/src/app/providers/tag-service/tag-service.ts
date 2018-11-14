@@ -31,7 +31,7 @@ export class TagServiceProvider {
     }); 
   }  
 
-  eleteTag(data) { 
+  deleteTag(data) { 
     return new Promise((resolve) => { 
       this.http.post('https://iot-ep.azurewebsites.net/api/delete', JSON.stringify(data)) 
         .subscribe(res => { 
@@ -42,14 +42,24 @@ export class TagServiceProvider {
     }); 
   } 
 
-  UploadMap(data) { 
+  uploadMap(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://iot-ep.azurewebsites.net/api/getmap', JSON.stringify(data)) 
+      this.http.post('http://localhost:5555', data) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
           console.log(err) 
         }); 
+    }); 
+  } 
+
+  getMap() { 
+    return new Promise(resolve => { 
+      this.http.get('http://localhost:5555').subscribe(data => { 
+        resolve(data); 
+      }, err => { 
+        console.log(err); 
+      }); 
     }); 
   } 
 }

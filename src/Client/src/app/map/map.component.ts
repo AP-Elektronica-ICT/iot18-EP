@@ -6,7 +6,7 @@ import { TargetLocator } from 'selenium-webdriver';
 
 @core.Component({
   selector: 'app-map',
-  templateUrl: './map2.0.component.html',
+  templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
@@ -23,9 +23,13 @@ export class MapComponent {
   tags: ITags[];
   show: boolean;
   info: String;
+  description: String;
   top = 0;
   left = 0;
   test = 0;
+  blob:any;
+  imageBase64:any;
+  timer:any;
 
 
   strokeWidth = 5;
@@ -35,18 +39,54 @@ export class MapComponent {
 
 
   constructor(public TagProvider: TagServiceProvider) {
-    this.loadTags();
+    this.loadData();
 
-   /* this.tags = [
-      { "xPos": 50, "yPos": 50, "tagId": "0", "stroke": 5, "id": 0 },
-      { "xPos": 150, "yPos": 150, "tagId": "1", "stroke": 5, "id": 1 },
-      { "xPos": 250, "yPos": 250, "tagId": "2", "stroke": 5, "id": 2 },
-      { "xPos": 350, "yPos": 350, "tagId": "3", "stroke": 5, "id": 3 },
+    this.tags = [
+      { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
+      { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
+      { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
+      { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
 
-    ]*/
-
+    ]
+    this.startTimer();
   }
 
+  startTimer() {
+      
+    this.timer = setTimeout(x => {
+      console.log("timer");
+      //this.tags=null;
+      this.tags = [
+        { "xPos": 50, "yPos": 50, "mac": "0", "stroke": 5 , "id": 0 ,"description" : "" },
+        { "xPos": 150, "yPos": 150, "mac": "1", "stroke": 5, "id": 1, "description" : "" },
+        { "xPos": 250, "yPos": 250, "mac": "2", "stroke": 5, "id": 2 , "description" : ""},
+        { "xPos": 350, "yPos": 350, "mac": "3", "stroke": 5, "id": 3 , "description" : ""},
+  
+      ]
+      /*this.TagProvider.getTags()
+      .then(data => {
+        this.tags = data;
+        console.log(this.tags)
+      });*/
+    
+    this.startTimer();
+    }, 1000);
+
+
+
+}
+
+  dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+ 
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });    
+    return blob;
+ }
 
   public ngAfterViewInit() {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -64,11 +104,17 @@ export class MapComponent {
     image.onload = () => {
       this.cx.drawImage(image, 0, 0, this.width, this.height);
     }
-    image.src = "assets/images/map.PNG";
-
+    image.src = this.imageBase64
 
   }
-  loadTags() {
+
+  loadData() {
+    this.TagProvider.getMap()
+    .then(data => {
+      this.imageBase64 = data
+      console.log(this.imageBase64)
+    });
+
     this.TagProvider.getTags()
       .then(data => {
         this.tags = data;
@@ -76,15 +122,14 @@ export class MapComponent {
       });
   }
 
-  divEnter(){
-    console.log("test")
-  }
+
 
   mouseEnter(x) {
     this.tags[x-1].stroke = 10
     this.left = this.tags[x-1].xPos +(this.totalw-this.width)/2
     this.top = this.tags[x-1].yPos + (((this.totalh-this.height)/2)-document.body.clientHeight)
     this.info = String(this.tags[x-1].id)
+    this.description = String(this.tags[x-1].description)
     this.show = true;
  
 
@@ -97,6 +142,8 @@ export class MapComponent {
 
   }
 
+  
+
 
 
 }
@@ -107,4 +154,5 @@ export interface ITags {
   mac: String;
   stroke: number
   id: number;
+  description: String;
 }
