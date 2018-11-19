@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Microsoft.AspNetCore.Cors;
-using Server.DatabaseSettings;
 
 namespace Server.Models
 {
@@ -19,11 +18,11 @@ namespace Server.Models
         {
              
             _context = context;
-            if (_context.Coordinate.Count() == 0)
+            if (_context.Coordinates.Count() == 0)
             {
-                _context.Coordinate.Add(new Coordinate { TagId = "1", XPos = 60, YPos = 100, Stroke = 5 });
-                _context.Coordinate.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
-                _context.Coordinate.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
+                _context.Coordinates.Add(new Coordinate { TagId = "1", XPos = 60, YPos = 100, Stroke = 5 });
+                _context.Coordinates.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
+                _context.Coordinates.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
                 _context.SaveChanges();
             }
         }
@@ -34,13 +33,13 @@ namespace Server.Models
         public ActionResult<List<Coordinate>> GetAll()
         {
 
-            return _context.Coordinate.ToList();
+            return _context.Coordinates.ToList();
         }
 
         [HttpPost]
         public IActionResult Create(Coordinate item)
         {
-            _context.Coordinate.Add(item);
+            _context.Coordinates.Add(item);
             _context.SaveChanges();
 
             return CreatedAtRoute("GetTodo", new { id = item.Id }, item);

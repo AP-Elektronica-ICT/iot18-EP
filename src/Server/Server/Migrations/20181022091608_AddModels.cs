@@ -8,7 +8,7 @@ namespace Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Anchor",
+                name: "Anchors",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -21,7 +21,7 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coordinate",
+                name: "Coordinates",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -37,7 +37,7 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Measurement",
+                name: "Measurements",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -52,7 +52,7 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tag",
+                name: "Tags",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -65,7 +65,7 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoItem",
+                name: "TodoItems",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -82,19 +82,19 @@ namespace Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Anchor");
+                name: "Anchors");
 
             migrationBuilder.DropTable(
-                name: "Coordinate");
+                name: "Coordinates");
 
             migrationBuilder.DropTable(
-                name: "Measurement");
+                name: "Measurements");
 
             migrationBuilder.DropTable(
-                name: "Tag");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "TodoItem");
+                name: "TodoItems");
         }
     }
 }

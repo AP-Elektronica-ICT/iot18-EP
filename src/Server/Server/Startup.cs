@@ -13,7 +13,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Server.Models;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using Server.DatabaseSettings;
 
 namespace Server
 {

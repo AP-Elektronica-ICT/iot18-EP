@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
-using Server.DatabaseSettings;
 
 namespace Server.Controllers
 {
@@ -30,7 +29,7 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Create(Anchor item)
         {
-            _context.Anchor.Add(item);
+            _context.Anchors.Add(item);
 
             if (_context.SaveChanges() > 0)
                 return Ok();
@@ -42,18 +41,18 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult<List<Anchor>> GetAll()
         {
-            return _context.Anchor.ToList();
+            return _context.Anchors.ToList();
         }
 
         [Route("{id}")]
         [HttpDelete]
         public IActionResult Delete(long id)
         {
-            var anchor = _context.Anchor.Find(id);
+            var anchor = _context.Anchors.Find(id);
             if (anchor == null)
                 return NotFound();
 
-            _context.Anchor.Remove(anchor);
+            _context.Anchors.Remove(anchor);
             _context.SaveChanges();
             return Ok();
 

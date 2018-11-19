@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
-using Server.DatabaseSettings;
-
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Server.Controllers
@@ -20,9 +18,9 @@ namespace Server.Controllers
         public TodoController(DatabaseContext context)
         {
             _context = context;
-            if(_context.TodoItem.Count() == 0)
+            if(_context.TodoItems.Count() == 0)
             {
-                _context.TodoItem.Add(new TodoItem { Name = "item1" });
+                _context.TodoItems.Add(new TodoItem { Name = "item1" });
                 _context.SaveChanges();
             }
         }
@@ -31,7 +29,7 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Create(TodoItem item)
         {
-            _context.TodoItem.Add(item);
+            _context.TodoItems.Add(item);
             _context.SaveChanges();
 
             return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
@@ -41,7 +39,7 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult<List<TodoItem>> GetAll()
         {
-            return _context.TodoItem.ToList();
+            return _context.TodoItems.ToList();
         }
 
 

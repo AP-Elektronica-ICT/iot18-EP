@@ -12224,11 +12224,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Schools\\IOT\\iot1819--iot18-ep\\src\\Server\\Server\\Server.csproj",
+      "projectUniqueName": "d:\\Github\\iot18-EP\\src\\Server\\Server\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "D:\\Schools\\IOT\\iot1819--iot18-ep\\src\\Server\\Server\\Server.csproj",
+      "projectPath": "d:\\Github\\iot18-EP\\src\\Server\\Server\\Server.csproj",
       "packagesPath": "C:\\Users\\Yorick Scheyltjens\\.nuget\\packages\\",
-      "outputPath": "D:\\Schools\\IOT\\iot1819--iot18-ep\\src\\Server\\Server\\obj\\",
+      "outputPath": "d:\\Github\\iot18-EP\\src\\Server\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
