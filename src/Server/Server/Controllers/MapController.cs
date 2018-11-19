@@ -13,37 +13,39 @@ namespace Server.Models
     public class MapController : Controller
     {
         
-        private readonly DatabaseContext _context;
-        public MapController(DatabaseContext context)
-        {
+        //private readonly DatabaseContext _context;
+        //public MapController(DatabaseContext context)
+        //{
              
-            _context = context;
-            if (_context.Coordinates.Count() == 0)
-            {
-                _context.Coordinates.Add(new Coordinate { TagId = "1", XPos = 60, YPos = 100, Stroke = 5 });
-                _context.Coordinates.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
-                _context.Coordinates.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
-                _context.SaveChanges();
-            }
-        }
+        //    _context = context;
+        //    if (_context.Coordinates.Count() == 0)
+        //    {
+        //        _context.Coordinates.Add(new Coordinate { TagId = "1", XPos = 123132132, YPos = 100, Stroke = 5 });
+        //        _context.Coordinates.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
+        //        _context.Coordinates.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
+        //        _context.SaveChanges();
+        //    }
+        //}
 
 
 
-        [HttpGet]
-        public ActionResult<List<Coordinate>> GetAll()
-        {
+        //[HttpGet]
+        //public ActionResult<List<Coordinate>> GetAll()
+        //{
 
-            return _context.Coordinates.ToList();
-        }
+        //    return _context.Coordinates.ToList();
+        //}
 
-        [HttpPost]
-        public IActionResult Create(Coordinate item)
-        {
-            _context.Coordinates.Add(item);
-            _context.SaveChanges();
+        
 
-            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
-        }
+        //[HttpPost]
+        //public IActionResult Create(Coordinate item)
+        //{
+        //    _context.Coordinates.Add(item);
+        //    _context.SaveChanges();
+
+        //    return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+        //}
 
 
         public IActionResult Index()
@@ -51,4 +53,6 @@ namespace Server.Models
             return View();
         }
     }
+
+
 }
