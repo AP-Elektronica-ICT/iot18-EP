@@ -13,11 +13,11 @@ namespace Server.Models
     public class MapController : Controller
     {
         
-        //private readonly DatabaseContext _context;
-        //public MapController(DatabaseContext context)
-        //{
+        private readonly DatabaseContext _context;
+        public MapController(DatabaseContext context)
+        {
              
-        //    _context = context;
+           _context = context;
         //    if (_context.Coordinates.Count() == 0)
         //    {
         //        _context.Coordinates.Add(new Coordinate { TagId = "1", XPos = 123132132, YPos = 100, Stroke = 5 });
@@ -25,7 +25,7 @@ namespace Server.Models
         //        _context.Coordinates.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
         //        _context.SaveChanges();
         //    }
-        //}
+        }
 
 
 

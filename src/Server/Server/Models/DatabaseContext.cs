@@ -15,5 +15,6 @@ namespace Server.Models
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Anchor> Anchors { get; set; }
+        public DbSet<User> User { get; set; }
     }      
 }
