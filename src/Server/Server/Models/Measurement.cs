@@ -8,8 +8,8 @@ namespace Server.Models
     public class Measurement
     {
         public long Id { get; set; }
-        public string Anchor_Mac { get; set; }
-        public string Tag_Mac { get; set; }
+        public string Mac_Anchor { get; set; }
+        public string Mac_Tag { get; set; }
         public double Distance { get; set; }
     }
 }

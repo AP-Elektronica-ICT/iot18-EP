@@ -44,6 +44,21 @@ namespace Server.Controllers
             return _context.Measurements.ToList();
         }
 
+        [Route("{mac}")]
+        [HttpGet]
+        public ActionResult GetMeasurement(string mac)
+        {
+            IQueryable<Measurement> query = _context.Measurements;
+            var data = query.Where(d => d.Mac_Tag == mac);
+            long id = data.Max<Measurement>(x => x.Id);
+
+            Measurement m = _context.Measurements.Find(id);
+            if (m == null)
+                return NotFound();
+
+            return Ok(m);
+        }
+
 
 
     }
