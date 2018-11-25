@@ -58,5 +58,13 @@ namespace Server.Models
         }
     }
 
+    public class Coordinates
+    {
+        public int Tag_Id { get; set; }
+        public int X_Pos { get; set; }
+        public int Y_Pos { get; set; }
+        public bool Status { get; set; }
+    }
+
 
 }
