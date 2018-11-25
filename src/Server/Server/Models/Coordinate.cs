@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class Coordinate
-    {
-        public long Id { get; set; }
-        public string TagId { get; set; }
-        public int XPos { get; set; }
-        public int YPos { get; set; }
-        public int Stroke { get; set; }
-    }
+    //public class Coordinate
+    //{
+    //    public long Id { get; set; }
+    //    public string TagId { get; set; }
+    //    public int XPos { get; set; }
+    //    public int YPos { get; set; }
+    //    public int Stroke { get; set; }
+    //}
 }

@@ -9,6 +9,8 @@ namespace Server.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Map { get; set; }
+        public ICollection<Map> Maps { get; set; }
+        public ICollection<Anchor> Anchors { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }
