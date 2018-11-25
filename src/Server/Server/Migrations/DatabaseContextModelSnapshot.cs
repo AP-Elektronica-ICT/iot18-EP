@@ -29,13 +29,42 @@ namespace Server.Migrations
 
                     b.Property<string>("Mac");
 
+                    b.Property<long?>("MapId");
+
                     b.Property<int?>("UserId");
+
+                    b.Property<int>("XPos");
+
+                    b.Property<int>("YPos");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MapId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Anchors");
+                });
+
+            modelBuilder.Entity("Server.Models.Map", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Height");
+
+                    b.Property<string>("Picture");
+
+                    b.Property<int?>("UserId");
+
+                    b.Property<int>("Width");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Anchors");
+                    b.ToTable("Maps");
                 });
 
             modelBuilder.Entity("Server.Models.Measurement", b =>
@@ -44,11 +73,11 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Anchor_Mac");
-
                     b.Property<double>("Distance");
 
-                    b.Property<string>("Tag_Mac");
+                    b.Property<string>("Mac_Anchor");
+
+                    b.Property<string>("Mac_Tag");
 
                     b.HasKey("Id");
 
@@ -74,21 +103,6 @@ namespace Server.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Server.Models.TodoItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsComplete");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TodoItems");
-                });
-
             modelBuilder.Entity("Server.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -99,20 +113,31 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Server.Models.Anchor", b =>
                 {
+                    b.HasOne("Server.Models.Map", "Map")
+                        .WithMany("Anchors")
+                        .HasForeignKey("MapId");
+
                     b.HasOne("Server.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Anchors")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Server.Models.Map", b =>
+                {
+                    b.HasOne("Server.Models.User")
+                        .WithMany("Maps")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Server.Models.Tag", b =>
                 {
                     b.HasOne("Server.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Tags")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
