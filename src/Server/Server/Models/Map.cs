@@ -9,7 +9,7 @@ namespace Server.Models
     {
         public long Id { get; set; }
         public string Picture { get; set; }
-        public int Height { get; set; }
+        public int Length { get; set; }
         public int Width { get; set; }
         public ICollection<Anchor> Anchors { get; set; }
     }
