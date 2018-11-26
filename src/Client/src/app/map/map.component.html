@@ -4,15 +4,16 @@
 </canvas>
 <svg [attr.height]="height" [attr.width]="width" fill="red">
   <circle *ngFor="let tag of tags" (mouseenter)="mouseEnter(tag.id)" (mouseleave)="mouseLeave(tag.id)" [attr.cx]="tag.xPos"
-    [attr.cy]="tag.yPos" [attr.r]="tag.stroke" stroke="green" stroke-width="2" fill="yellow" />
+    [attr.cy]="tag.yPos" [attr.r]="tag.stroke" stroke="green" stroke-width="2" [attr.fill]="checkStatus(tag.id)" />
 </svg>
 
 <p>interval voor refresh is {{delay}}</p>
 <mat-card> 
 <div class="slidecontainer">
-    <label >1</label>
-  <input type="range" (input)="rangeChanged($event.target.value)" min="1" max="300" pin="true" value="50" class="slider" id="myRange">
-  <label >300</label>
+  <label>1</label>
+  <input type="range" (input)="rangeChanged($event.target.value)" min="1" max="300" pin="true" value="50" class="slider"
+    id="myRange">
+  <label>300</label>
 </div>
 <mdb-range-input default="true" id="range" min="0" max="100"></mdb-range-input>
 </mat-card>
@@ -45,8 +46,3 @@
     info:{{description}}
   </p>
 </div>
-
-
-
-
-
