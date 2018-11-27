@@ -1,5 +1,7 @@
 #include <SPI.h>
 #include <DW1000.h>
+#include <SoftwareSerial.h>
+SoftwareSerial softSerial(4, 3); // RX, TX
 // connection pins
 const uint8_t PIN_RST = 9; // reset pin
 const uint8_t PIN_IRQ = 2; // irq pin
@@ -41,9 +43,12 @@ uint16_t successRangingCount = 0;
 uint32_t rangingCountPeriod = 0;
 float samplingRate = 0;
 
+int afstand;
+
 void setup() {
   // DEBUG monitoring
   Serial.begin(115200);
+  softSerial.begin(9600);
   delay(1000);
   Serial.println(F("### DW1000-arduino-ranging-anchor ###"));
   // initialize the driver
@@ -228,6 +233,8 @@ void loop() {
         Serial.print("Tag ");
         Serial.print(data[16]);
         Serial.print(": "); Serial.print(distance); Serial.println(" m");
+        softSerial.print(distance * 100, DEC);
+        softSerial.print(".");
         //Serial.print("\t RX power: "); Serial.print(DW1000.getReceivePower()); Serial.println(" dBm");
         //Serial.print("\t Sampling: "); Serial.print(samplingRate); Serial.println(" Hz");
         //Serial.print("FP power is [dBm]: "); Serial.println(DW1000.getFirstPathPower());

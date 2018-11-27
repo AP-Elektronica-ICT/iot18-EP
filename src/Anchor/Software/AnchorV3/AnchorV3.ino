@@ -56,56 +56,37 @@ uint16_t replyDelayTimeUS = 3000;
 uint16_t successRangingCount = 0;
 uint32_t rangingCountPeriod = 0;
 float samplingRate = 0;
+int teller = 0;
 
 void sendPacket() {
-  byte sd = stash.create();
-  const char data[] = "datahierrr";
-  stash.print("jsonshizzle");
-  stash.println(data);
-  stash.save();
-  int stash_size = stash.size();
 
-  Stash::prepare(PSTR("POST http://$F/anchor/data/api.php HTTP/1.0" "\r\n"
-    "Content-Length: $D" "\r\n"
-    "\r\n"
-    "$H"),
-  website, website, stash_size, sd);
-
-  // send the packet - this also releases all stash buffers once done
-  // Save the session ID so we can watch for it in the main loop.
-  session = ether.tcpSend();
-
-  
-
-  /*
   byte sd = stash.create();
   stash.print("{");
   
-  stash.print("\"var1\":");
-  stash.print("\"ans1\"");
-
+  stash.print("\"MAC_TAG\":");
+  stash.print("\"02\"");
   stash.print(",");
-
-  stash.print("\"var2\":");
-  stash.print("\"ans2\"");
-
-  
+  stash.print("\"MAC_ANCHOR\":");
+  stash.print("\"0x74, 0x69, 0x69, 0x2D, 0x30, 0x31\"");
+  stash.print(",");
+  stash.print("\"DISTANCE\":");
+  stash.print(teller);
   
   stash.print("}");
   stash.save();
-  Stash::prepare(PSTR("POST http://$F:80/ HTTP/1.1" "\r\n"
-                      "Host: $F:80" "\r\n"
+  Stash::prepare(PSTR("POST https://$F HTTP/1.1" "\r\n"
+                      "Host: $F" "\r\n"
                        "Content-Length: $D" "\r\n"
+                       "Content-Type: application/json" "\r\n"
                        "\r\n"
                        "$H"),
                  website, website, stash.size(), sd);
-  ether.tcpSend();*/
-
-
-
+  ether.tcpSend();
+  teller++;
 
   
   Serial.println("Packet Send");
+
 }
 
 
@@ -251,6 +232,7 @@ void computeRangeSymmetric() {
 */
 
 void loop() {
+  /*
   int32_t curMillis = millis();
   if (!sentAck && !receivedAck) {
     // check if inactive
@@ -325,7 +307,7 @@ void loop() {
       noteActivity();
     }
   }
-
+*/
   ether.packetLoop(ether.packetReceive());
 
   const char* reply = ether.tcpReply(session);
@@ -338,5 +320,7 @@ void loop() {
     timer = millis();
     sendPacket();
   }
+
+  
 }
 

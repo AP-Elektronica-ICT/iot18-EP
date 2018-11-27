@@ -1,3 +1,4 @@
+
 <canvas id="myCanvas" #canvas>
 
 </canvas>
@@ -7,12 +8,36 @@
 </svg>
 
 <p>interval voor refresh is {{delay}}</p>
+<mat-card> 
 <div class="slidecontainer">
   <label>1</label>
   <input type="range" (input)="rangeChanged($event.target.value)" min="1" max="300" pin="true" value="50" class="slider"
     id="myRange">
   <label>300</label>
 </div>
+<mdb-range-input default="true" id="range" min="0" max="100"></mdb-range-input>
+</mat-card>
+
+<mdb-card>
+  <!--Card image-->
+  <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+  <!--Card content-->
+  <mdb-card-body>
+
+    <!--Title-->
+    <mdb-card-title>
+      <h4>Card Title</h4>
+    </mdb-card-title>
+
+    <!--Text-->
+    <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+      content.
+    </mdb-card-text>
+
+    <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+  </mdb-card-body>
+</mdb-card>
+
 
 <div id="difke" *ngIf=" show && top && left" (mouseenter)='difEnter()' [style.marginTop.px]="top" [style.marginLeft.px]="left">
   <h3>Short summary</h3>
