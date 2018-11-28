@@ -17,32 +17,38 @@ namespace Server.Models
         public MapController(DatabaseContext context)
         {
              
-            _context = context;
-            if (_context.Coordinates.Count() == 0)
-            {
-                _context.Coordinates.Add(new Coordinate { TagId = "1", XPos = 60, YPos = 100, Stroke = 5 });
-                _context.Coordinates.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
-                _context.Coordinates.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
-                _context.SaveChanges();
-            }
+           _context = context;
+            //if (_context.Coordinates.Count() == 0)
+            //{
+            //    _context.Coordinates.Add(new Coordinate { TagId = "1", XPos = 123132132, YPos = 100, Stroke = 5 });
+            //    _context.Coordinates.Add(new Coordinate { TagId = "2", XPos = 20, YPos = 150, Stroke = 5 });
+            //    _context.Coordinates.Add(new Coordinate { TagId = "3", XPos = 150, YPos = 50, Stroke = 5 });
+            //    _context.SaveChanges();
+            //}
         }
 
 
 
-        [HttpGet]
-        public ActionResult<List<Coordinate>> GetAll()
-        {
+        //[HttpGet]
+        //public ActionResult<List<Coordinate>> GetAll()
+        //{
 
-            return _context.Coordinates.ToList();
-        }
+        //    return _context.Coordinates.ToList();
+        //}
 
-        [HttpPost]
-        public IActionResult Create(Coordinate item)
+
+
+        [HttpPut]
+        public IActionResult Create([FromBody] User user)
         {
-            _context.Coordinates.Add(item);
+            var oldMap = _context.Users.Find(user.Id);
+            if (oldMap == null)
+                return NotFound();
+
+            //oldMap.Map = user.Map;
+            _context.Users.Update(oldMap);
             _context.SaveChanges();
-
-            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+            return Ok(oldMap);
         }
 
 
@@ -51,4 +57,14 @@ namespace Server.Models
             return View();
         }
     }
+
+    public class Coordinates
+    {
+        public int Tag_Id { get; set; }
+        public int X_Pos { get; set; }
+        public int Y_Pos { get; set; }
+        public bool Status { get; set; }
+    }
+
+
 }

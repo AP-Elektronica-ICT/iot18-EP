@@ -19,12 +19,12 @@ namespace Server.Controllers
         public TagController(DatabaseContext context)
         {
             _context = context;
-            if (_context.Tags.Count() == 0)
-            {
-                _context.Tags.Add(new Tag { Mac = "11:11:11:11" });
-                _context.Tags.Add(new Tag { Mac = "22:22:22:22" });
-                _context.SaveChanges();
-            }
+            //if (_context.Tags.Count() == 0)
+            //{
+            //    _context.Tags.Add(new Tag { Mac = "11:11:11:11" });
+            //    _context.Tags.Add(new Tag { Mac = "22:22:22:22" });
+            //    _context.SaveChanges();
+            //}
         }
 
         [HttpPost]
@@ -43,6 +43,18 @@ namespace Server.Controllers
         public ActionResult<List<Tag>> GetAll()
         {
             return _context.Tags.ToList();
+        }
+
+        [HttpPut()]
+        public IActionResult Put([FromBody] Tag updateTag)
+        {
+            var tag = _context.Tags.Find(updateTag.Id);
+            if (tag == null)
+                return NotFound();
+
+            tag.Description = updateTag.Description;
+            _context.SaveChanges();
+            return Ok(tag);
         }
 
         [Route("{id}")]

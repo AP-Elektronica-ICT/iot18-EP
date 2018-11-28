@@ -27,7 +27,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Anchor item)
+        public IActionResult AddAnchor(Anchor item)
         {
             _context.Anchors.Add(item);
 
