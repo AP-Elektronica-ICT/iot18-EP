@@ -35,8 +35,6 @@ export class MapComponent {
   color: string = "yellow"
   teller: any;
   _distance :any;
-
-
   strokeWidth = 5;
   map:any;
 
@@ -70,7 +68,7 @@ export class MapComponent {
           { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3, "description": "", "status": true, "lastActive": "153:861::9841" },
           { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4, "description": "", "status": true, "lastActive": "153:861::9841" },
         ];*/
-
+        this.refresh();
 
       }
       this.startTimer();
@@ -145,6 +143,18 @@ export class MapComponent {
         this.tags = data;
         console.log(this.tags)
       });
+  }
+
+  refresh(){
+    if(this.totalw != window.innerWidth || this.totalh != window.innerHeight){
+      this.totalw = window.innerWidth
+      this.totalh = window.innerHeight;
+      this.width = this.totalw *0.6
+      this.height = this.width / 16 * 9;
+      this.ngAfterViewInit();
+
+
+    }
   }
 
   mouseEnter(x) {
