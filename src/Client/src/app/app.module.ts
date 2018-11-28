@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,  NO_ERRORS_SCHEMA  } from '@angular/core';
+import { NgModule,  NO_ERRORS_SCHEMA, Component  } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -50,4 +50,7 @@ const appRoutes: Routes = [
   providers: [TagServiceProvider],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule { 
+
+}
