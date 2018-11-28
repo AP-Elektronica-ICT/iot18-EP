@@ -2,6 +2,7 @@ import * as core from '@angular/core';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
 import { Input, ViewChild, ElementRef } from '@angular/core';
 import { AnonymousSubject } from 'rxjs/Subject';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @core.Component({
   selector: 'app-map',
@@ -27,76 +28,73 @@ export class MapComponent {
   left = 0;
   test = 0;
   blob: any;
-  imageBase64: any;
+  imageBase64: IImage;
   timer: any;
   value: number = 100;
-  delay = 50;
+  delay = 1;
   color: string = "yellow"
-  teller:any;
+  teller: any;
+  _distance :any;
 
 
   strokeWidth = 5;
+  map:any;
 
 
 
 
 
-  constructor(public TagProvider: TagServiceProvider) {
+  constructor(private router: Router, public TagProvider: TagServiceProvider) {
     this.loadData();
-
-    this.tags = [
-      { "xPos": 50, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": false, "lastActive": "153:861::9841" },
-      { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description": "", "status": true, "lastActive": "153:861::9841" },
-      { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3, "description": "", "status": true, "lastActive": "153:861::9841" },
-      { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4, "description": "", "status": false, "lastActive": "153:861::9841" },
-
-    ]
-
     this.startTimer();
   }
 
-  startTimer() {
 
+
+  startTimer() {
+    //console.log(this.delay)
     this.timer = setTimeout(x => {
       if (this.show == false) {
-        console.log("timer");
         //this.tags=null;
-        this.tags = [
-          { "xPos": 50, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": true, "lastActive": "153:861::9841" },
+        /*this.TagProvider.getConcept()
+        .then(data => {
+          //console.log(data)
+          this.concept = data
+          //console.log(this.concept.distance)
+          this._distance = this.concept.distance
+        });*/
+
+        /*this.tags = [
+          { "xPos": this._distance, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": true, "lastActive": "153:861::9841" },
           { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description": "", "status": true, "lastActive": "153:861::9841" },
           { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3, "description": "", "status": true, "lastActive": "153:861::9841" },
           { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4, "description": "", "status": true, "lastActive": "153:861::9841" },
-        ]
-
-        /*this.TagProvider.getTags()
-        .then(data => {
-          this.tags = data;
-          console.log(this.tags)
-        });*/
+        ];*/
 
 
       }
       this.startTimer();
     }, this.delay * 1000);
+  }
 
-
+  detailPage(_id) {
+    this.router.navigate(['detail',_id])
 
   }
 
-   checkStatus(id){
-     this.teller++
+  checkStatus(id) {
+    this.teller++
     // console.log(this.teller)
-    if(this.tags[id-1].status == true){
-      return "red";
+    if (this.tags[id - 1].status == true) {
+      return "yellow";
     }
-    else if(this.tags[id-1].status == false){
-      return "green";
+    else if (this.tags[id - 1].status == false) {
+      return "red";
     }
   }
 
   rangeChanged(interval) {
     this.delay = interval
-    console.log(this.delay)
   }
 
   dataURItoBlob(dataURI) {
@@ -112,6 +110,7 @@ export class MapComponent {
   }
 
   public ngAfterViewInit() {
+    this.loadData();
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl.getContext('2d')!;
     let image = new Image();
@@ -127,16 +126,19 @@ export class MapComponent {
     image.onload = () => {
       this.cx.drawImage(image, 0, 0, this.width, this.height);
     }
-    image.src = this.imageBase64
+      image.src = "data:image/png;base64,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"
 
   }
 
   loadData() {
     this.TagProvider.getMap()
       .then(data => {
+        //console.log(data);
         this.imageBase64 = data
-        console.log(this.imageBase64)
+        this.map = this.imageBase64.map
+        console.log(this.map)
       });
+
 
     this.TagProvider.getTags()
       .then(data => {
@@ -165,6 +167,7 @@ export class MapComponent {
 
 }
 
+
 export interface ITags {
   xPos: number;
   yPos: number;
@@ -174,4 +177,10 @@ export interface ITags {
   description: String;
   status: boolean;
   lastActive: String;
+}
+
+export interface IImage {
+  map: string;
+  name: number;
+  id: number;
 }

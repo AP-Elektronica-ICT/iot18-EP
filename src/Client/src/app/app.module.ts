@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { TagServiceProvider } from './providers/tag-service/tag-service';
 import { TagsComponent } from './tags/tags.component';
+import { DetailComponent } from './detail/detail.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,11 +20,12 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'tags', component: TagsComponent},
   { path: 'changePassword', component: ChangePasswordComponent},
+  { path: 'detail/:id', component: DetailComponent},
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
   },
-];
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,12 +34,13 @@ const appRoutes: Routes = [
     LoginComponent,
     UploadComponent,
     ChangePasswordComponent,
-    TagsComponent 
+    TagsComponent,
+    DetailComponent
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true}
+      {enableTracing: false}
     ),
     BrowserModule,
     MDBBootstrapModule.forRoot(),
