@@ -12218,23 +12218,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Yorick Scheyltjens\\.nuget\\packages\\": {},
+    "C:\\Users\\Jens Cools\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\iot18-EP\\src\\Server\\Server\\Server.csproj",
+      "projectName": "Server",
+      "projectPath": "C:\\iot18-EP\\src\\Server\\Server\\Server.csproj",
+      "packagesPath": "C:\\Users\\Jens Cools\\.nuget\\packages\\",
+      "outputPath": "C:\\iot18-EP\\src\\Server\\Server\\obj\\",
+=======
       "projectUniqueName": "D:\\Github\\iot18-EP\\src\\Server\\Server\\Server.csproj",
       "projectName": "Server",
       "projectPath": "D:\\Github\\iot18-EP\\src\\Server\\Server\\Server.csproj",
       "packagesPath": "C:\\Users\\Yorick Scheyltjens\\.nuget\\packages\\",
       "outputPath": "D:\\Github\\iot18-EP\\src\\Server\\Server\\obj\\",
+>>>>>>> master
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Yorick Scheyltjens\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jens Cools\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

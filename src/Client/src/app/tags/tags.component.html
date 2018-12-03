@@ -4,9 +4,13 @@
     <h1 class="card-title">Add Tag</h1>
     <label>
       Mac Address:
-      <input type="text" #titleInput>
+      <input type="text" #macInput>
+    </label><br/>
+    <label>
+      Description:
+      <input type="text" #desInput>
     </label>
-    <button type="button" class="btn btn-primary" (click)='addTag(titleInput.value)'>Add</button>
+    <button type="button" class="btn btn-primary" (click)='addTag(titleInput.value,desInput.value)'>Add</button>
   </div>
 </div>
 
