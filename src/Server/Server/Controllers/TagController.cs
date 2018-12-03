@@ -27,47 +27,60 @@ namespace Server.Controllers
             //}
         }
 
-        [HttpPost]
-        public IActionResult Create(Tag item)
-        {
-            _context.Tags.Add(item);
+        //[HttpPost]
+        //public IActionResult Create(Tag item)
+        //{
+        //    _context.Tags.Add(item);
 
-            if (_context.SaveChanges() > 0)
-                return Ok();
+        //    if (_context.SaveChanges() > 0)
+        //        return Ok();
 
-            return NotFound();
-        }
+        //    return NotFound();
+        //}
 
-        // GET: api/<controller>
-        [HttpGet]
-        public ActionResult<List<Tag>> GetAll()
-        {
-            return _context.Tags.ToList();
-        }
+        //// GET: api/<controller>
+        //[HttpGet]
+        //public ActionResult<List<Tag>> GetAll()
+        //{
+        //    return _context.Tags.ToList();
+        //}
 
-        [HttpPut()]
-        public IActionResult Put([FromBody] Tag updateTag)
-        {
-            var tag = _context.Tags.Find(updateTag.Id);
-            if (tag == null)
-                return NotFound();
-
-            tag.Description = updateTag.Description;
-            _context.SaveChanges();
-            return Ok(tag);
-        }
 
         [Route("{id}")]
-        [HttpDelete]
-        public IActionResult Delete(long id)
+        [HttpGet]
+        public IActionResult GetTag(int id)
         {
+
             var tag = _context.Tags.Find(id);
             if (tag == null)
                 return NotFound();
 
-            _context.Tags.Remove(tag);
-            _context.SaveChanges();
-            return Ok();
+            return Ok(tag);
         }
+
+        //[HttpPut]
+        //public IActionResult Put([FromBody] Tag updateTag)
+        //{
+        //    var tag = _context.Tags.Find(updateTag.Id);
+        //    if (tag == null)
+        //        return NotFound();
+
+        //    tag.Description = updateTag.Description;
+        //    _context.SaveChanges();
+        //    return Ok(tag);
+        //}
+
+        //[Route("{id}")]
+        //[HttpDelete]
+        //public IActionResult Delete(long id)
+        //{
+        //    var tag = _context.Tags.Find(id);
+        //    if (tag == null)
+        //        return NotFound();
+
+        //    _context.Tags.Remove(tag);
+        //    _context.SaveChanges();
+        //    return Ok();
+        //}
     }
 }
