@@ -64,7 +64,7 @@ uint8_t Address = 2;
 
 void setup() {
     // DEBUG monitoring
-    Serial.begin(115200);
+    Serial.begin(9600);
     Serial.println(F("### DW1000-arduino-ranging-tag ###"));
     // initialize the driver
     DW1000.begin(PIN_IRQ, PIN_RST);
@@ -91,6 +91,7 @@ void setup() {
     // attach callback for (successfully) sent and received messages
     DW1000.attachSentHandler(handleSent);
     DW1000.attachReceivedHandler(handleReceived);
+    DW1000.setGPIOMode(MSGP0, LED_MODE);
     // anchor starts by transmitting a POLL message
     receiver();
     transmitPoll();
