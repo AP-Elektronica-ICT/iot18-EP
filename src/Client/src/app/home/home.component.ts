@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ITags } from '../map/map.component';
+import { TagServiceProvider } from '../providers/tag-service/tag-service';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,8 @@ import { ITags } from '../map/map.component';
 })
 export class HomeComponent {
 tags:ITags[];
-tag:any
-  constructor() {
+description: String;
+  constructor(public TagProvider: TagServiceProvider) {
    this.tags = [
     { "xPos": 50, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": false, "lastActive": "153:861::9841" },
     { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description": "", "status": true, "lastActive": "153:861::9841" },
@@ -19,12 +20,16 @@ tag:any
     ]
    }
 
-   onKey(event: any) { // without type info
-    this.tag = event.target.value
+   onKey(event: any) {
+    this.description = event.target.value
   }
 
   save(tagid){
-    console.log(this.tag,tagid)
+    console.log(this.description,tagid)
+    this.TagProvider.putDescription('{"Description":"' + this.description + '","Id":"' + tagid + '"}')
+      .then(data => {
+      });
+
   }
 
 

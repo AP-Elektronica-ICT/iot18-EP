@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="IIS Web Application Name" description="" value="IoT-EP" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^d:\\Github\\iot18-EP\\src\\Server\\Server\\obj\\Release\\netcoreapp2\.1\\PubTmp\\Out\\$" />
-  </parameter>
-</parameters>

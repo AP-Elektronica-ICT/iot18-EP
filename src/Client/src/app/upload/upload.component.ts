@@ -10,7 +10,7 @@ import { TagServiceProvider } from '../providers/tag-service/tag-service';
 export class UploadComponent {
 
   file:any;
-  test:any
+  map:any
 
 
   constructor(public TagProvider: TagServiceProvider) {
@@ -23,14 +23,16 @@ export class UploadComponent {
   var reader = new FileReader();
   reader.readAsDataURL(event.target.files[0]);
   reader.onload = (event) => {
-   this.test = (<FileReader>event.target).result;
+   this.map = (<FileReader>event.target).result;
 
   }
 }
   
   handleReaderLoaded(e) {
-    console.log('data:image/png;base64,' + btoa(e.target.result));
-    this.TagProvider.uploadMap('data:image/png;base64,' + btoa(e.target.result))
+    this.TagProvider.uploadMap(JSON.stringify({
+      Id: 2,
+      Map:'data:image/png;base64,' + btoa(e.target.result)
+  }))
     .then(data => {
       if (data) {
         console.log("succes")
