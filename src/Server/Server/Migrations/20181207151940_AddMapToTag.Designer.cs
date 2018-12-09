@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Models;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20181207151940_AddMapToTag")]
+    partial class AddMapToTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace Server.Migrations
 
                     b.Property<long?>("MapId");
 
-                    b.Property<long?>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.Property<int>("X_Pos");
 
@@ -56,7 +58,7 @@ namespace Server.Migrations
 
                     b.Property<string>("Picture");
 
-                    b.Property<long?>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.Property<int>("Width");
 
@@ -98,7 +100,7 @@ namespace Server.Migrations
 
                     b.Property<long?>("MapId");
 
-                    b.Property<long?>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
@@ -111,7 +113,7 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Models.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

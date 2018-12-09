@@ -11,9 +11,9 @@ namespace CirkelBerekeningen
         static void Main(string[] args)
         {
 
-            calculateThreeCircleIntersection(0.1, 0.1, 2.0, // circle 1 (center_x, center_y, radius)
-                0.1, 3.9, 2.0, // circle 2 (center_x, center_y, radius)
-                2, 2.0, 2.0);// circle 3 (center_x, center_y, radius)
+            //calculateThreeCircleIntersection(0.1, 0.1, 2.0, // circle 1 (center_x, center_y, radius)
+            //    0.1, 3.9, 2.0, // circle 2 (center_x, center_y, radius)
+            //    2, 2.0, 2.0);// circle 3 (center_x, center_y, radius)
 
             Console.ReadKey();
 
@@ -23,7 +23,7 @@ namespace CirkelBerekeningen
 
         private static Boolean calculateThreeCircleIntersection(double x0, double y0, double r0,
                                                  double x1, double y1, double r1,
-                                                 double x2, double y2, double r2)
+                                                 double x2, double y2, double r2, double x3, double y3, double r3)
         {
             double a, dx, dy, d, h, rx, ry;
             double point2_x, point2_y;

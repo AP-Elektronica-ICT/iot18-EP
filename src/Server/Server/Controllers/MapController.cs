@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
+using Server.Algorithm;
 
-namespace Server.Models
+namespace Server.Controllers
 {
     [Route("api/map")]
     [EnableCors("AllowAllMethods")]
@@ -32,7 +34,7 @@ namespace Server.Models
 
         [Route("{userId}/{mapId}")]
         [HttpGet]
-        public IActionResult GetCoordinates(long userId, long mapId)
+        public IActionResult GetCoordinates(int userId, long mapId)
         {
             coordinates = new List<Coordinate>();
 
@@ -40,82 +42,66 @@ namespace Server.Models
 
             //lijst van tags voor bepaalde user
             IQueryable<Tag> tag_query = _context.Tags;
-            var tags = tag_query.Where(d => d.User.Id == userId);
+            //var tags = tag_query.Where(d => d.User.Id == userId);
+            List<Tag> tags = _context.Tags
+                           .Where(d => d.User.Id == userId)
+                           .Where(m => m.Map.Id == mapId)
+                           .Select(e => new Tag
+                           {
+                               Id = e.Id,
+                               Mac = e.Mac,
+                               Description = e.Description
+                           })
+                           .ToList();
+
+            IQueryable<Anchor> anchor_query = _context.Anchors;
+            List<Anchor> anchors = anchor_query
+                                      .Where(d => d.User.Id == userId)
+                                      .Where(m => m.Map.Id == mapId)
+                                      .Select(e => new Anchor
+                                      {
+                                          X_Pos = e.X_Pos,
+                                          Y_Pos = e.Y_Pos,
+                                          Mac = e.Mac
+                                      })
+                                      .ToList();
+
+            //return Ok(anchors);
+            
             foreach (var tag in tags)
             {
-                List<Measurement> measurements = new List<Measurement>();
-
-                //alle metingen doorzoeken naar een bepaalde tag
-
                 List<Data> dataList = new List<Data>();
-
-                //lijst van anchors van bepaalde user
-                IQueryable<Anchor> anchor_query = _context.Anchors;
-                var anchors = anchor_query.Where(d => d.User.Id == userId)
-                                          .Select(e => new Anchor
-                                          {
-                                              X_Pos = e.X_Pos,
-                                              Y_Pos = e.Y_Pos,
-                                              Mac = e.Mac
-                                          });
-
-
                 foreach (var anchor in anchors)
                 {
-                    try
+                    IQueryable<Measurement> query = _context.Measurements;
+                    List<Measurement> measurements = query.Where(a => a.Mac_Anchor == anchor.Mac)
+                                    .Where(t => t.Mac_Tag == tag.Mac)
+                                    .ToList();
+                    foreach(var measurement in measurements)
                     {
-                        IQueryable<Measurement> query = _context.Measurements;
-                        var data = query.Where(a => a.Mac_Anchor == anchor.Mac)
-                                        .Where(t => t.Mac_Tag == tag.Mac);
-
-                        if (!data.Any())
-                            return NotFound("Empty");
-                        else
-                            return Ok("Not empty");
+                        dataList.Add(new Data
+                        {
+                            X_Pos = anchor.X_Pos / 100,
+                            Y_Pos = anchor.Y_Pos / 100,
+                            Distance = measurement.Distance / 100
+                        });
                     }
-                    catch (Exception e)
-                    { return NotFound(e.ToString()); }
-                    //if (data == null)
-                    //    return NotFound("jaaa");
-
-                    //double distance = data.Max<Measurement>(x => x.Distance);
-
-                    //dataList.Add(new Data { X_Pos = anchor.X_Pos, Y_Pos = anchor.Y_Pos, Distance = distance });
                 }
+               
+                double[] pos = Algorithm.Algorithm.Calculate(dataList);
+                int xPos = (int)((pos[0] * 100) / map.Width * 100);
+                int yPos = (int)((pos[1] * 100) / map.Length * 100);
+                coordinates.Add(new Coordinate
+                {
+                    Tag = tag,
+                    X_Pos = xPos,
+                    Y_Pos = yPos
+                });
 
-                return Ok(dataList);
-            
 
-
-
-
-
-
-
-
-
-
-                //    //cirkelberekening
-
-                //    int xPos = 0;
-                //    int yPos = 0;
-                //    bool status = true;
-
-                //    Coordinate coordinate = new Coordinate();
-                //    coordinate.Tag = tag;
-                //    coordinate.X_Pos = xPos;
-                //    coordinate.Y_Pos = yPos;
-                //    coordinate.Status = status;
-
-                //    coordinates.Add(coordinate);
-
-                //}
-
-                //if (coordinates == null)
-                //    return NotFound();
-                //return Ok(coordinates);
             }
-            return NotFound();
+
+            return Ok(coordinates);
            
         }
 
@@ -147,12 +133,9 @@ namespace Server.Models
     public class Coordinate
     {
         public Tag Tag { get; set; }
-        public long Tag_Id { get; set; }
-        public string Tag_Mac { get; set; }
-        public int X_Pos { get; set; }
-        public int Y_Pos { get; set; }
-        public string Description { get; set; }
-        public bool Status { get; set; }
+        public double X_Pos { get; set; }
+        public double Y_Pos { get; set; }
+        public bool Status { get { return true; } }
         public int Stroke { get { return 5; } } //moet van Jens
     }
 

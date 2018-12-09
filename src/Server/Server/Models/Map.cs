@@ -12,5 +12,6 @@ namespace Server.Models
         public int Length { get; set; }
         public int Width { get; set; }
         public ICollection<Anchor> Anchors { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }
