@@ -70,17 +70,17 @@ namespace Server.Controllers
         //    return Ok(tag);
         //}
 
-        //[Route("{id}")]
-        //[HttpDelete]
-        //public IActionResult Delete(long id)
-        //{
-        //    var tag = _context.Tags.Find(id);
-        //    if (tag == null)
-        //        return NotFound();
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult Delete(long id)
+        {
+            var tag = _context.Tags.Find(id);
+            if (tag == null)
+                return NotFound();
 
-        //    _context.Tags.Remove(tag);
-        //    _context.SaveChanges();
-        //    return Ok();
-        //}
+            _context.Tags.Remove(tag);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
