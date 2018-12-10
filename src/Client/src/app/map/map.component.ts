@@ -20,7 +20,7 @@ export class MapComponent {
 
 
   private cx: CanvasRenderingContext2D;
-  tags: ITags[];
+  tags: ITag[];
   show = false;
   info: String;
   description: String;
@@ -50,24 +50,14 @@ export class MapComponent {
 
 
   startTimer() {
-    //console.log(this.delay)
     this.timer = setTimeout(x => {
       if (this.show == false) {
-        //this.tags=null;
-        /*this.TagProvider.getConcept()
+        
+        this.TagProvider.getTags()
         .then(data => {
-          //console.log(data)
-          this.concept = data
-          //console.log(this.concept.distance)
-          this._distance = this.concept.distance
-        });*/
-
-        /*this.tags = [
-          { "xPos": this._distance, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": true, "lastActive": "153:861::9841" },
-          { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description": "", "status": true, "lastActive": "153:861::9841" },
-          { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3, "description": "", "status": true, "lastActive": "153:861::9841" },
-          { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4, "description": "", "status": true, "lastActive": "153:861::9841" },
-        ];*/
+          this.tags=null;
+          this.tags = data
+        });
         this.refresh();
 
       }
@@ -83,10 +73,10 @@ export class MapComponent {
   checkStatus(id) {
     this.teller++
     // console.log(this.teller)
-    if (this.tags[id - 1].status == true) {
+    if (this.tags[id].status == true) {
       return "yellow";
     }
-    else if (this.tags[id - 1].status == false) {
+    else if (this.tags[id].status == false) {
       return "red";
     }
   }
@@ -108,7 +98,7 @@ export class MapComponent {
   }
 
   public ngAfterViewInit() {
-    this.loadData();
+    //this.loadData();
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl.getContext('2d')!;
     let image = new Image();
@@ -131,7 +121,7 @@ export class MapComponent {
   loadData() {
     this.TagProvider.getMap()
       .then(data => {
-        //console.log(data);
+        console.log(data);
         this.imageBase64 = data
         this.map = this.imageBase64.map
         console.log(this.map)
@@ -158,11 +148,11 @@ export class MapComponent {
   }
 
   mouseEnter(x) {
-    this.tags[x - 1].stroke = 10
-    this.left = this.tags[x - 1].xPos + (this.totalw - this.width) / 2
-    this.top = this.tags[x - 1].yPos + (((this.totalh - this.height) / 2) - document.body.clientHeight)
-    this.info = String(this.tags[x - 1].id)
-    this.description = String(this.tags[x - 1].description)
+    this.tags[x].stroke = 10;
+    this.left = ((this.width/100)*this.tags[x].x_Pos) + (this.totalw - this.width) / 2
+    this.top = ((this.height/100)*this.tags[x].y_Pos) + (((this.totalh - this.height) / 2) - document.body.clientHeight)
+    this.info = String(this.tags[x].tag.id)
+    this.description = String(this.tags[x].tag.description)
     this.show = true;
 
 
@@ -170,7 +160,7 @@ export class MapComponent {
   }
 
   mouseLeave(x) {
-    this.tags[x - 1].stroke = 5
+    this.tags[x].stroke = 5
     this.show = false;
 
   }
@@ -178,17 +168,21 @@ export class MapComponent {
 }
 
 
-export interface ITags {
-  xPos: number;
-  yPos: number;
-  mac: String;
-  stroke: number
+export interface IUser {
   id: number;
-  description: String;
-  status: boolean;
-  lastActive: String;
+  mac: string;
+  description: string;
+  user: any;
+  map: any;
 }
 
+export interface ITag{
+  tag: IUser;
+  x_Pos: number;
+  y_Pos: number;
+  status: boolean;
+  stroke: number;
+}
 export interface IImage {
   map: string;
   name: number;

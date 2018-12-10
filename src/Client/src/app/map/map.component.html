@@ -3,15 +3,15 @@
 
 </canvas>
 <svg [attr.height]="height" [attr.width]="width" fill="red">
-  <circle *ngFor="let tag of tags" (mouseenter)="mouseEnter(tag.id)" (mouseleave)="mouseLeave(tag.id)" [attr.cx]="tag.xPos"
-    [attr.cy]="tag.yPos" [attr.r]="tag.stroke" stroke="green" stroke-width="2" [attr.fill]="checkStatus(tag.id)" (click)="detailPage(tag.id)" />
+  <circle *ngFor="let tag of tags; index as i" (mouseenter)="mouseEnter(i)" (mouseleave)="mouseLeave(i)" [attr.cx]="(width/100)*tag.x_Pos"
+    [attr.cy]="(height/100)*tag.y_Pos  " [attr.r]="tag.stroke" stroke="green" stroke-width="2" [attr.fill]="checkStatus(i)" (click)="detailPage(tag.tag.id)" />
 </svg>
 
-<p>interval voor refresh is {{delay}}</p>
+<p>Interval voor refresh is {{delay}}</p>
 <mat-card> 
 <div class="slidecontainer">
   <label>1</label>
-  <input type="range" (input)="rangeChanged($event.target.value)" min="1" max="300" pin="true" value="1" class="slider"
+  <input width="10px" type="range" (input)="rangeChanged($event.target.value)" min="1" max="300" pin="true" value="1" class="slider"
     id="myRange">
   <label>300</label>
 </div>
@@ -20,7 +20,7 @@
 <div id="difke" *ngIf=" show && top && left" (mouseenter)='difEnter()' [style.marginTop.px]="top" [style.marginLeft.px]="left">
   <h3>Short summary</h3>
   <p>
-    id:{{info}}<br>
-    info:{{description}}
+    id : {{info}}<br>
+    info : {{description}}
   </p>
 </div>

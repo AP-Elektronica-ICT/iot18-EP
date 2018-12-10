@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ITags, IImage } from '../map/map.component';
+import {  IImage, ITag } from '../map/map.component';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
 
 @Component({
@@ -54,12 +54,12 @@ export class DetailComponent {
         console.log(data)
       })
 
-    this.tag = [
+    /*this.tag = [
       { "xPos": this._distance, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": true, "lastActive": "153:861::9841" },
       { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description": "", "status": true, "lastActive": "153:861::9841" },
       { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3, "description": "", "status": true, "lastActive": "153:861::9841" },
       { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4, "description": "", "status": true, "lastActive": "153:861::9841" },
-    ];
+    ];*/
   }
 
 
@@ -127,11 +127,6 @@ export class DetailComponent {
     this.show = false;
 
   }
-
-
-}
-interface ITag{
-  //coordinates:any[];
 
 
 }
