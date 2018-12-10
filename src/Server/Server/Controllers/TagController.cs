@@ -28,24 +28,42 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Tag item)
+        [Route("{userId}/{mapId}")]
+        public IActionResult Create(Tag item, int userId, long mapId)
         {
+            User user = _context.Users.Find(userId);
+            Map map = _context.Maps.Find(mapId);
+            item.User = user;
+            item.Map = map;
             _context.Tags.Add(item);
 
             if (_context.SaveChanges() > 0)
-                return Ok();
+                return Ok(item);
 
             return NotFound();
         }
 
-        // GET: api/<controller>
+        //// GET: api/<controller>
+        //[HttpGet]
+        //public ActionResult<List<Tag>> GetAll()
+        //{
+        //    return _context.Tags.ToList();
+        //}
+
+
+        [Route("{id}")]
         [HttpGet]
-        public ActionResult<List<Tag>> GetAll()
+        public IActionResult GetTag(int id)
         {
-            return _context.Tags.ToList();
+
+            var tag = _context.Tags.Find(id);
+            if (tag == null)
+                return NotFound();
+
+            return Ok(tag);
         }
 
-        [HttpPut()]
+        [HttpPut]
         public IActionResult Put([FromBody] Tag updateTag)
         {
             var tag = _context.Tags.Find(updateTag.Id);
@@ -69,5 +87,12 @@ namespace Server.Controllers
             _context.SaveChanges();
             return Ok();
         }
+    }
+
+    public class DetailTag
+    {
+        public long Id { get; set; }
+        public string Description { get; set; }
+        public string Mac { get; set; }
     }
 }

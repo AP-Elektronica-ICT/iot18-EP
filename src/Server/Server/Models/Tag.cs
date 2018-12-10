@@ -11,5 +11,6 @@ namespace Server.Models
         public string Mac { get; set; }
         public string Description { get; set; }
         public User User { get; set; }
+        public Map Map { get; set; }
     }
 }

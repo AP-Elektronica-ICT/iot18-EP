@@ -1,5 +1,6 @@
 #include <EtherCard.h>
 #include <SoftwareSerial.h>
+#define MAC_ANCHOR 1
 
 
 static byte mymac[] = { 0x74, 0x69, 0x69, 0x2D, 0x30, 0x31 };
@@ -13,41 +14,98 @@ Stash stash;
 static long timer;
 static byte session;
 
-int sendMessage = false;
-int distance;
-
-SoftwareSerial softSerial(2, 3); // RX, TX
+int distance = 0;
+int MAC_TAG = 0;
 
 
-void sendPacket(int distance) {
+static boolean receiving = false;
+static byte ndx = 0;
+char startCharacter = '<';
+char endCharacter = '>';
+char readChar;
+const byte charCount = 32;
+char receivedChars[charCount];
+char tempChars[charCount];
+boolean newData = false;
 
- 
-  
+SoftwareSerial softSerial(A3, A2); // RX, TX
+
+void checkSerial() {
+
+  while (softSerial.available() > 0 && newData == false) {
+    readChar = softSerial.read();
+
+    if (receiving == true) {
+      if (readChar != endCharacter) {
+        receivedChars[ndx] = readChar;
+        ndx++;
+        if (ndx >= charCount) {
+          ndx = charCount - 1;
+        }
+      }
+      else {
+        receivedChars[ndx] = '\0'; // terminate the string
+        receiving = false;
+        ndx = 0;
+        newData = true;
+      }
+    }
+
+    else if (readChar == startCharacter) {
+      receiving = true;
+    }
+  }
+  if (newData == true) {
+    strcpy(tempChars, receivedChars);
+    splitSerialData();
+    newData = false;
+  }
+
+}
+
+void splitSerialData() {
+  char * strtokIndex;
+  strtokIndex = strtok(tempChars, ",");
+  MAC_TAG = atoi(strtokIndex);
+
+  strtokIndex = strtok(NULL, ",");
+  distance = atoi(strtokIndex);
+
+  Serial.print(MAC_TAG);
+  Serial.print(",");
+  Serial.println(distance);
+}
+
+void sendPacket() {
+
+
+
   byte sd = stash.create();
   stash.print("{");
-  
+
   stash.print("\"MAC_TAG\":");
-  stash.print("\"TAG03\"");
+  stash.print(MAC_TAG);
   stash.print(",");
   stash.print("\"MAC_ANCHOR\":");
-  stash.print("\"ANCHOR_69\"");
+  stash.print(MAC_ANCHOR);
   stash.print(",");
   stash.print("\"DISTANCE\":");
   stash.print(distance);
-  
+
   stash.print("}");
   stash.save();
   Stash::prepare(PSTR("POST https://$F HTTP/1.1" "\r\n"
                       "Host: $F" "\r\n"
-                       "Content-Length: $D" "\r\n"
-                       "Content-Type: application/json" "\r\n"
-                       "\r\n"
-                       "$H"),
+                      "Content-Length: $D" "\r\n"
+                      "Content-Type: application/json" "\r\n"
+                      "\r\n"
+                      "$H"),
                  website, website, stash.size(), sd);
   ether.tcpSend();
 
-  
-  Serial.println("Packet Send");
+
+  Serial.print("Packet sent, distance: ");
+  Serial.println(distance);
 }
 void setup () {
   Serial.begin(9600);
@@ -60,38 +118,21 @@ void setup () {
 
   softSerial.begin(9600);
 
-  
+
 
 }
 
 void loop () {
-  
-  ether.packetLoop(ether.packetReceive());
 
-  const char* reply = ether.tcpReply(session);
-  if (reply != 0) {
-    Serial.println("Got a response!");
-    Serial.println(reply);
-  }
+  checkSerial();
+  ether.packetLoop(ether.packetReceive());
 
   if (millis() > timer + 1000) {
     timer = millis();
-    //sendPacket(10);
+    if (distance != 0) {
+      sendPacket();
+    }
   }
 
-
-
-
-  while(softSerial.available() > 0) {
-    distance = softSerial.parseInt();
-    softSerial.read();
-    sendMessage = true;
-  }
-  if(sendMessage){
-    sendMessage = false;
-    Serial.println(distance);
-    sendPacket(distance);
-  }
-  
 
 }

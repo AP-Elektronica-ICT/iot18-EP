@@ -13064,12 +13064,6 @@ Used in manufacturing several products at SparkFun.
 <label x="421.64" y="111.76" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$19" class="0">
-<segment>
-<pinref part="UART1" gate="G$1" pin="CTS"/>
-<wire x1="15.24" y1="147.32" x2="5.08" y2="147.32" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="DTR2" class="0">
 <segment>
 <pinref part="C11" gate="G$1" pin="1"/>

@@ -3201,9 +3201,6 @@ design rules under a new name.</description>
 <wire x1="78.486" y1="30.988" x2="78.486" y2="52.451" width="0.508" layer="1"/>
 <wire x1="78.486" y1="52.451" x2="78.89875" y2="52.86375" width="0.508" layer="1"/>
 </signal>
-<signal name="N$19">
-<contactref element="UART1" pad="CTS"/>
-</signal>
 <signal name="DTR2">
 <contactref element="C11" pad="1"/>
 <contactref element="UART2" pad="DTR"/>
