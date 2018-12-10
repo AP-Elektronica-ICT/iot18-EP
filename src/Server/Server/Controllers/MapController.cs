@@ -89,6 +89,7 @@ namespace Server.Controllers
                 }
                
                 double[] pos = Algorithm.Algorithm.Calculate(dataList);
+                
                 int xPos = (int)((pos[0] * 100) / map.Width * 100);
                 int yPos = (int)((pos[1] * 100) / map.Length * 100);
                 coordinates.Add(new Coordinate
