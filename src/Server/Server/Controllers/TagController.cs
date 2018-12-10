@@ -28,12 +28,17 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Tag item)
+        [Route("{userId}/{mapId}")]
+        public IActionResult Create(Tag item, int userId, long mapId)
         {
+            User user = _context.Users.Find(userId);
+            Map map = _context.Maps.Find(mapId);
+            item.User = user;
+            item.Map = map;
             _context.Tags.Add(item);
 
             if (_context.SaveChanges() > 0)
-                return Ok();
+                return Ok(item);
 
             return NotFound();
         }
@@ -82,5 +87,12 @@ namespace Server.Controllers
             _context.SaveChanges();
             return Ok();
         }
+    }
+
+    public class DetailTag
+    {
+        public long Id { get; set; }
+        public string Description { get; set; }
+        public string Mac { get; set; }
     }
 }
