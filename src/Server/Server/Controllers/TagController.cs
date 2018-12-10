@@ -58,17 +58,17 @@ namespace Server.Controllers
             return Ok(tag);
         }
 
-        //[HttpPut]
-        //public IActionResult Put([FromBody] Tag updateTag)
-        //{
-        //    var tag = _context.Tags.Find(updateTag.Id);
-        //    if (tag == null)
-        //        return NotFound();
+        [HttpPut]
+        public IActionResult Put([FromBody] Tag updateTag)
+        {
+            var tag = _context.Tags.Find(updateTag.Id);
+            if (tag == null)
+                return NotFound();
 
-        //    tag.Description = updateTag.Description;
-        //    _context.SaveChanges();
-        //    return Ok(tag);
-        //}
+            tag.Description = updateTag.Description;
+            _context.SaveChanges();
+            return Ok(tag);
+        }
 
         [Route("{id}")]
         [HttpDelete]
