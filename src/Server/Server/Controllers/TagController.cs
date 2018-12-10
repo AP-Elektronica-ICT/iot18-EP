@@ -27,16 +27,16 @@ namespace Server.Controllers
             //}
         }
 
-        //[HttpPost]
-        //public IActionResult Create(Tag item)
-        //{
-        //    _context.Tags.Add(item);
+        [HttpPost]
+        public IActionResult Create(Tag item)
+        {
+            _context.Tags.Add(item);
 
-        //    if (_context.SaveChanges() > 0)
-        //        return Ok();
+            if (_context.SaveChanges() > 0)
+                return Ok();
 
-        //    return NotFound();
-        //}
+            return NotFound();
+        }
 
         //// GET: api/<controller>
         //[HttpGet]
