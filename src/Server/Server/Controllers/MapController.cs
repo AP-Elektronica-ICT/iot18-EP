@@ -39,7 +39,7 @@ namespace Server.Controllers
             coordinates = new List<Coordinate>();
 
             var map = _context.Maps.Find(mapId);
-
+            
             //lijst van tags voor bepaalde user
             IQueryable<Tag> tag_query = _context.Tags;
             //var tags = tag_query.Where(d => d.User.Id == userId);
@@ -101,8 +101,12 @@ namespace Server.Controllers
 
 
             }
-
-            return Ok(coordinates);
+            ReturnMap returnMap = new ReturnMap
+            {
+                Picture = map.Picture,
+                Coordinates = coordinates
+            };
+            return Ok(returnMap);
            
         }
 
@@ -130,7 +134,11 @@ namespace Server.Controllers
         }
     }
 
-    
+    public class ReturnMap
+    {
+        public string Picture { get; set; }
+        public List<Coordinate> Coordinates { get; set; }
+    }
     public class Coordinate
     {
         public Tag Tag { get; set; }
