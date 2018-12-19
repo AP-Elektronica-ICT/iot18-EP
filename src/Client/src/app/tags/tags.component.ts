@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
-import { ITag } from '../map/map.component';
+import { ITag, IMap } from '../map/map.component';
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
@@ -8,16 +8,18 @@ import { ITag } from '../map/map.component';
 })
 export class TagsComponent {
 tags:ITag[];
+map:IMap;
+
 hide=true;
 deleteTag
 
   constructor(public TagProvider: TagServiceProvider) { 
 
     this.TagProvider.getTags()
-      .then(data => {
-        this.tags = data;
-        console.log(this.tags)
-      });
+    .then(data => {
+      this.map = data;
+      this.tags = this.map.coordinates;
+    });
   }
 
   addTag(mac:String,description:String) {

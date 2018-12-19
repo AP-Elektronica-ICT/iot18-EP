@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITag } from '../map/map.component';
+import { ITag, IMap } from '../map/map.component';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
 
 @Component({
@@ -8,14 +8,17 @@ import { TagServiceProvider } from '../providers/tag-service/tag-service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+map:IMap;
 tags:ITag[];
+mapImage:string
 description: String;
   constructor(public TagProvider: TagServiceProvider) {
     this.TagProvider.getTags()
     .then(data => {
-      this.tags = data;
-      console.log(this.tags)
-    });  
+      this.map = data;
+      this.tags = this.map.coordinates;
+      this.mapImage = this.map.picture
+    }); 
  }
 
    onKey(event: any) {
@@ -26,10 +29,15 @@ description: String;
     //console.log(this.description,tagid)
     this.TagProvider.putDescription(JSON.stringify({
       description :this.description,
-      id: tagid
-    }))
+      
+    }),tagid)
       .then(data => {
-
+          if(data){
+            console.log("true")
+          }
+          else{
+            console.log("false")
+          }
       });
 
   }

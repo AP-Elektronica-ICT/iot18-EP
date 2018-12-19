@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
-import { ITag, IImage } from '../../map/map.component';
+import { ITag, IMap } from '../../map/map.component';
 
 @Injectable() 
 export class TagServiceProvider { 
@@ -13,9 +13,9 @@ export class TagServiceProvider {
     };
   }
   
-  getTags(): Promise<ITag[]>  { 
+  getTags(): Promise<IMap>  { 
     return new Promise(resolve => { 
-      this.http.get<ITag[]>('https://iot-ep.azurewebsites.net/api/map/1/1').subscribe(data => { 
+      this.http.get<IMap>('https://iot-ep.azurewebsites.net/api/map/1/1').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -68,22 +68,10 @@ export class TagServiceProvider {
     }); 
   } 
 
-  getMap(): Promise<IImage> { 
-    return new Promise(resolve => { 
-      this.http.get<IImage>('https://iot-ep.azurewebsites.net/api/picturemap/1').subscribe(data => { 
-        resolve(data); 
-        console.log(data); 
-      }, err => { 
-        console.log(err); 
-       
-      }); 
-    }); 
-  } 
-
-  putDescription(data) { 
+  putDescription(data,id) { 
     return new Promise(resolve => { 
       console.log(data)
-      this.http.put('https://iot-ep.azurewebsites.net/api/tags',data,this.httpOptions).subscribe(data => { 
+      this.http.put('https://iot-ep.azurewebsites.net/api/tags/'+id,data,this.httpOptions).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
