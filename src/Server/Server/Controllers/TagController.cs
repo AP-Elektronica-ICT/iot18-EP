@@ -53,7 +53,7 @@ namespace Server.Controllers
 
         [Route("{id}")]
         [HttpGet]
-        public IActionResult GetTag(int id)
+        public IActionResult GetTag(long id)
         {
 
             var tag = _context.Tags.Find(id);
@@ -63,10 +63,11 @@ namespace Server.Controllers
             return Ok(tag);
         }
 
+        [Route("{tagId}")]
         [HttpPut]
-        public IActionResult Put([FromBody] Tag updateTag)
+        public IActionResult Put([FromBody] Tag updateTag, long tagId)
         {
-            var tag = _context.Tags.Find(updateTag.Id);
+            var tag = _context.Tags.Find(tagId);
             if (tag == null)
                 return NotFound();
 
@@ -94,5 +95,6 @@ namespace Server.Controllers
         public long Id { get; set; }
         public string Description { get; set; }
         public string Mac { get; set; }
+        //public List<>
     }
 }
