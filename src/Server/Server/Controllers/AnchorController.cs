@@ -58,6 +58,21 @@ namespace Server.Controllers
 
         }
 
+        [Route("{anchorId}")]
+        [HttpPut]
+        public IActionResult Edit([FromBody] Anchor updateAnchor, long anchorId)
+        {
+            var anchor = _context.Anchors.Find(anchorId);
+            if (anchor == null)
+                return NotFound(updateAnchor);
+            if (updateAnchor.Description != null) { anchor.Description = updateAnchor.Description; }
+            if (updateAnchor.X_Pos != 0) { anchor.X_Pos = updateAnchor.X_Pos; }
+            if (updateAnchor.Y_Pos != 0) { anchor.Y_Pos = updateAnchor.Y_Pos; }
+            if (_context.SaveChanges() >= 0)
+                return Ok(anchor);
+            return NotFound(anchor);
+        }
+
         
     }
 }

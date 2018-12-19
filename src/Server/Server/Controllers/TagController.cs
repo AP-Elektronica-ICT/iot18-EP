@@ -83,7 +83,6 @@ namespace Server.Controllers
             var tag = _context.Tags.Find(id);
             if (tag == null)
                 return NotFound();
-
             _context.Tags.Remove(tag);
             _context.SaveChanges();
             return Ok();
