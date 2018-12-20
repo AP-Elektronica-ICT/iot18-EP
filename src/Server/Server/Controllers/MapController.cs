@@ -114,17 +114,20 @@ namespace Server.Controllers
 
 
 
-        [HttpPut]
-        public IActionResult Create([FromBody] User user)
+        [HttpPost]
+        [Route("{userId}")]
+        public IActionResult AddMap([FromBody] Map map, int userId)
         {
-            var oldMap = _context.Users.Find(user.Id);
-            if (oldMap == null)
+            var user = _context.Users.Find(userId);
+            if (user == null)
                 return NotFound();
-
             //oldMap.Map = user.Map;
-            _context.Users.Update(oldMap);
-            _context.SaveChanges();
-            return Ok(oldMap);
+
+            map.User = user;
+            _context.Maps.Add(map);
+            if (_context.SaveChanges() < 0)
+                return NotFound();
+            return Ok(map);
         }
 
 
