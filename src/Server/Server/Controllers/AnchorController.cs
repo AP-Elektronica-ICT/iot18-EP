@@ -27,8 +27,13 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAnchor(Anchor item)
+        [Route("{userId}/{mapId}")]
+        public IActionResult AddAnchor(Anchor item, int userId, long mapId)
         {
+            var user = _context.Users.Find(userId);
+            var map = _context.Maps.Find(mapId);
+            item.User = user;
+            item.Map = map;
             _context.Anchors.Add(item);
 
             if (_context.SaveChanges() > 0)
