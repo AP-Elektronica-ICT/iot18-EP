@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
-import { ITags, IImage } from '../../map/map.component';
+import { ITag, IMap } from '../../map/map.component';
 
 @Injectable() 
 export class TagServiceProvider { 
@@ -13,25 +13,15 @@ export class TagServiceProvider {
     };
   }
   
-  getTags(): Promise<ITags[]>  { 
+  getTags(): Promise<IMap>  { 
     return new Promise(resolve => { 
-      this.http.get<ITags[]>('https://iot-ep.azurewebsites.net/api/user').subscribe(data => { 
+      this.http.get<IMap>('https://iot-ep.azurewebsites.net/api/map/1/1').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
       }); 
     }); 
   } 
-
-  /*getConcept(): Promise<IConcept> { 
-    return new Promise(resolve => { 
-      this.http.get<IConcept>('https://iot-ep.azurewebsites.net/api/measurements/TAG03').subscribe(data => { 
-        resolve(data); 
-      }, err => { 
-        console.log(err); 
-      }); 
-    }); 
-  } */
 
   getTagId(id:any) { 
     return new Promise(resolve => { 
@@ -43,9 +33,10 @@ export class TagServiceProvider {
     }); 
   } 
 
-  addTag(data) { 
+  addTag(data,uesrId,mapId) { 
     return new Promise((resolve) => { 
-      this.http.post('https://iot-ep.azurewebsites.net/api/add', JSON.stringify(data)) 
+      console.log(data)
+      this.http.post('https://iot-ep.azurewebsites.net/api/tags/' + uesrId +'/' + mapId,data,this.httpOptions) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -77,21 +68,10 @@ export class TagServiceProvider {
     }); 
   } 
 
-  getMap(): Promise<IImage> { 
+  putDescription(data,id) { 
     return new Promise(resolve => { 
-      this.http.get<IImage>('https://iot-ep.azurewebsites.net/api/users/2').subscribe(data => { 
-        resolve(data); 
-        console.log(data); 
-      }, err => { 
-        console.log(err); 
-       
-      }); 
-    }); 
-  } 
-
-  putDescription(data) { 
-    return new Promise(resolve => { 
-      this.http.put('https://iot-ep.azurewebsites.net/api/tags',JSON.stringify(data)).subscribe(data => { 
+      console.log(data)
+      this.http.put('https://iot-ep.azurewebsites.net/api/tags/'+id,data,this.httpOptions).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 

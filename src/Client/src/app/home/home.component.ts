@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITags } from '../map/map.component';
+import { ITag, IMap } from '../map/map.component';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
 
 @Component({
@@ -8,26 +8,36 @@ import { TagServiceProvider } from '../providers/tag-service/tag-service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-tags:ITags[];
+map:IMap;
+tags:ITag[];
+mapImage:string
 description: String;
   constructor(public TagProvider: TagServiceProvider) {
-   this.tags = [
-    { "xPos": 50, "yPos": 50, "mac": "1", "stroke": 5, "id": 1, "description": "", "status": false, "lastActive": "153:861::9841" },
-    { "xPos": 150, "yPos": 150, "mac": "2", "stroke": 5, "id": 2, "description": "", "status": true, "lastActive": "153:861::9841" },
-    { "xPos": 250, "yPos": 250, "mac": "3", "stroke": 5, "id": 3, "description": "", "status": true, "lastActive": "153:861::9841" },
-    { "xPos": 350, "yPos": 350, "mac": "4", "stroke": 5, "id": 4, "description": "", "status": false, "lastActive": "153:861::9841" },
-
-    ]
-   }
+    this.TagProvider.getTags()
+    .then(data => {
+      this.map = data;
+      this.tags = this.map.coordinates;
+      this.mapImage = this.map.picture
+    }); 
+ }
 
    onKey(event: any) {
     this.description = event.target.value
   }
 
   save(tagid){
-    console.log(this.description,tagid)
-    this.TagProvider.putDescription('{"Description":"' + this.description + '","Id":"' + tagid + '"}')
+    //console.log(this.description,tagid)
+    this.TagProvider.putDescription(JSON.stringify({
+      description :this.description,
+      
+    }),tagid)
       .then(data => {
+          if(data){
+            console.log("true")
+          }
+          else{
+            console.log("false")
+          }
       });
 
   }

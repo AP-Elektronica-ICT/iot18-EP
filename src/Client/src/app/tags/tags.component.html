@@ -10,7 +10,7 @@
       Description:
       <input type="text" #desInput>
     </label>
-    <button type="button" class="btn btn-primary" (click)='addTag(titleInput.value,desInput.value)'>Add</button>
+    <button type="button" class="btn btn-primary" (click)='addTag(macInput.value,desInput.value)'>Add</button>
   </div>
 </div>
 
@@ -21,12 +21,12 @@
       <label>
         <span *ngFor="let tag of tags">
           <ul class="list-group">
-            <a (click)="selectedTag(tag.id)" class="list-group-item">TagId:{{tag.id}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description : {{tag.description}}</a>
+            <a (click)="selectedTag(tag.tag.id)" class="list-group-item">TagId:{{tag.tag.id}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description : {{tag.tag.description}}</a>
           </ul>
         </span>
       </label><br/>
 
-      <button [hidden]=this.hide type="button" class="btn btn-primary" (click)='deleteTagId(this.deleteTag)'>Delete tag {{this.deleteTag}}</button>
+      <button [hidden]=this.hide type="button" class="btn btn-primary" (click)='deleteTagId(deleteTag)'>Delete tag {{deleteTag}}</button>
     </div>
   </div>
 </div>

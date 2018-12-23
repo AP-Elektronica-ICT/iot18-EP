@@ -27,8 +27,13 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAnchor(Anchor item)
+        [Route("{userId}/{mapId}")]
+        public IActionResult AddAnchor(Anchor item, int userId, long mapId)
         {
+            var user = _context.Users.Find(userId);
+            var map = _context.Maps.Find(mapId);
+            item.User = user;
+            item.Map = map;
             _context.Anchors.Add(item);
 
             if (_context.SaveChanges() > 0)
@@ -57,5 +62,22 @@ namespace Server.Controllers
             return Ok();
 
         }
+
+        [Route("{anchorId}")]
+        [HttpPut]
+        public IActionResult Edit([FromBody] Anchor updateAnchor, long anchorId)
+        {
+            var anchor = _context.Anchors.Find(anchorId);
+            if (anchor == null)
+                return NotFound(updateAnchor);
+            if (updateAnchor.Description != null) { anchor.Description = updateAnchor.Description; }
+            if (updateAnchor.X_Pos != 0) { anchor.X_Pos = updateAnchor.X_Pos; }
+            if (updateAnchor.Y_Pos != 0) { anchor.Y_Pos = updateAnchor.Y_Pos; }
+            if (_context.SaveChanges() >= 0)
+                return Ok(anchor);
+            return NotFound(anchor);
+        }
+
+        
     }
 }
