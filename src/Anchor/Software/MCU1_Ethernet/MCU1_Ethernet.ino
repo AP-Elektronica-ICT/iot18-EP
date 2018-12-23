@@ -1,11 +1,10 @@
 #include <EtherCard.h>
 #include <SoftwareSerial.h>
-uint8_t macAnchor = 3; 
-uint8_t macTag = 0;
+#define MAC_ANCHOR 1
 
 
-static byte mymac[] = { 0x74, 0x69, 0x69, 0x2D, 0x30, 0x10 + macAnchor };
-static byte myip[] = { 192, 168, 3, 10 + macAnchor }; //IP
+static byte mymac[] = { 0x74, 0x69, 0x69, 0x2D, 0x30, 0x31 };
+static byte myip[] = { 192, 168, 3, 3 }; //IP
 static byte gwip[] = { 192, 168, 3, 1 }; //Gateway
 static byte hisip[] = { 192, 168, 3, 1 }; //Destination
 const char website[] PROGMEM = "192.168.3.1"; //Destination
@@ -16,6 +15,7 @@ static long timer;
 static byte session;
 
 int distance = 0;
+int MAC_TAG = 0;
 
 
 static boolean receiving = false;
@@ -34,7 +34,6 @@ void checkSerial() {
 
   while (softSerial.available() > 0 && newData == false) {
     readChar = softSerial.read();
-    
 
     if (receiving == true) {
       if (readChar != endCharacter) {
@@ -67,12 +66,12 @@ void checkSerial() {
 void splitSerialData() {
   char * strtokIndex;
   strtokIndex = strtok(tempChars, ",");
-  macTag = atoi(strtokIndex);
+  MAC_TAG = atoi(strtokIndex);
 
   strtokIndex = strtok(NULL, ",");
   distance = atoi(strtokIndex);
 
-  Serial.print(macTag);
+  Serial.print(MAC_TAG);
   Serial.print(",");
   Serial.println(distance);
 }
@@ -85,23 +84,17 @@ void sendPacket() {
   stash.print("{");
 
   stash.print("\"MAC_TAG\":");
-  stash.print("\"");
-  stash.print("TAG");
-  stash.print(macTag);
-  stash.print("\"");
+  stash.print(MAC_TAG);
   stash.print(",");
   stash.print("\"MAC_ANCHOR\":");
-  stash.print("\"");
-  stash.print("ANCHOR");
-  stash.print(macAnchor);
-  stash.print("\"");
+  stash.print(MAC_ANCHOR);
   stash.print(",");
   stash.print("\"DISTANCE\":");
   stash.print(distance);
 
   stash.print("}");
   stash.save();
-  Stash::prepare(PSTR("POST http://$F HTTP/1.1" "\r\n"
+  Stash::prepare(PSTR("POST https://$F HTTP/1.1" "\r\n"
                       "Host: $F" "\r\n"
                       "Content-Length: $D" "\r\n"
                       "Content-Type: application/json" "\r\n"
@@ -122,7 +115,11 @@ void setup () {
   ether.staticSetup(myip, gwip);
   ether.copyIp(ether.hisip, hisip);
   ether.printIp("Server: ", ether.hisip);
+
   softSerial.begin(9600);
+
+
+
 }
 
 void loop () {

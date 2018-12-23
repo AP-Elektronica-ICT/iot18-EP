@@ -1,33 +1,3 @@
-/*
- * Copyright (c) 2015 by Thomas Trojer <thomas@trojer.net>
- * Decawave DW1000 library for arduino.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * @file RangingTag.ino
- * Use this to test two-way ranging functionality with two DW1000. This is
- * the tag component's code which polls for range computation. Addressing and
- * frame filtering is currently done in a custom way, as no MAC features are
- * implemented yet.
- *
- * Complements the "RangingAnchor" example sketch.
- *
- * @todo
- *  - use enum instead of define
- *  - move strings to flash (less RAM consumption)
- */
-uint8_t macAnchor = 1;
-
 #include <SPI.h>
 #include <DW1000.h>
 #include <SoftwareSerial.h>
@@ -61,7 +31,7 @@ DW1000Time timeRangeReceived;
 // last computed range/time
 DW1000Time timeComputedRange;
 // data buffer
-#define LEN_DATA 18
+#define LEN_DATA 17
 byte data[LEN_DATA];
 // watchdog and reset period
 uint32_t lastActivity;
@@ -88,9 +58,9 @@ void setup() {
   // general configuration
   DW1000.newConfiguration();
   DW1000.setDefaults();
-  DW1000.setDeviceAddress(3);
+  DW1000.setDeviceAddress(1);
   DW1000.setNetworkId(10);
-  DW1000.enableMode(DW1000.MODE_LONGDATA_RANGE_ACCURACY);
+  DW1000.enableMode(DW1000.MODE_LONGDATA_RANGE_LOWPOWER);
   DW1000.commitConfiguration();
   Serial.println(F("Committed configuration ..."));
   // DEBUG chip info and registers pretty printed
@@ -259,14 +229,11 @@ void loop() {
     //Serial.println();
 
     byte msgId = data[0];
-    uint8_t msgAnchorMac = data[16];
-    byte msgTagMac = data[17];
-    
     if (msgId != expectedMsgId) {
       // unexpected message, start over again (except if already POLL)
       protocolFailed = true;
     }
-    if (msgId == POLL && msgAnchorMac == macAnchor) {
+    if (msgId == POLL) {
       // on POLL we (re-)start, so no protocol failure
       protocolFailed = false;
       DW1000.getReceiveTimestamp(timePollReceived);
@@ -282,8 +249,7 @@ void loop() {
         timePollAckReceived.setTimestamp(data + 6);
         timeRangeSent.setTimestamp(data + 11);
         // (re-)compute range as two-way ranging is done
-        //computeRangeAsymmetric(); // CHOSEN RANGING ALGORITHM
-        computeRangeSymmetric();
+        computeRangeAsymmetric(); // CHOSEN RANGING ALGORITHM
         transmitRangeReport(timeComputedRange.getAsMicroSeconds());
         long distance = timeComputedRange.getAsMeters() * 100;
         
@@ -294,7 +260,7 @@ void loop() {
         //softSerial.println((int)distance);
         //softSerial.print("#");
 
-        sendToEthernet(msgTagMac,(int)distance); //SEND TAG MAC + TAG DISTANCE
+        sendToEthernet((int)data[16],(int)distance);
         
         //Serial.print("\t RX power: "); Serial.print(DW1000.getReceivePower()); Serial.println(" dBm");
         //Serial.print("\t Sampling: "); Serial.print(samplingRate); Serial.println(" Hz");
@@ -317,3 +283,4 @@ void loop() {
     }
   }
 }
+
