@@ -11,7 +11,7 @@
 		$mac_anchor = $data["MAC_ANCHOR"];
 		$distance = $data["DISTANCE"];
 	
-		$export = $distance;
+		$export = $distance.",".date();
 
 		$file_path = "data/".$mac_tag."/".$mac_anchor;
         	

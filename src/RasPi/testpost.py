@@ -58,10 +58,11 @@ def postData():
 		for file in files:
 			with open('/var/www/html/data/' + file) as f:
 				s = f.read()
+				distance, timestamp = s.split(",")
 				f.close()
 			split_path = file.split('/')
 			
-			payload = {'Mac_Tag': split_path[0], 'Mac_Anchor': split_path[1], 'Distance': s}
+			payload = {'Mac_Tag': split_path[0], 'Mac_Anchor': split_path[1], 'Distance': distance, 'Unix_Timestamp': timestamp}
 
 			response = requests.post(final_url,json=payload)
 
