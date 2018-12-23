@@ -10,8 +10,9 @@
         	$mac_tag = $data["MAC_TAG"];
 		$mac_anchor = $data["MAC_ANCHOR"];
 		$distance = $data["DISTANCE"];
-	
-		$export = $distance.",".date();
+		
+
+		$export = $distance.",".date("U");
 
 		$file_path = "data/".$mac_tag."/".$mac_anchor;
         	
