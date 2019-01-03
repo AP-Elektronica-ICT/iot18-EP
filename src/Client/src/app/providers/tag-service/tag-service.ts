@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { ITag, IMap } from '../../map/map.component';
+import { promise } from 'protractor';
+import { ITagById } from '../../detail/detail.component';
 
 @Injectable() 
 export class TagServiceProvider { 
@@ -15,7 +17,7 @@ export class TagServiceProvider {
   
   getTags(): Promise<IMap>  { 
     return new Promise(resolve => { 
-      this.http.get<IMap>('https://iot-ep.azurewebsites.net/api/map/1/1').subscribe(data => { 
+      this.http.get<IMap>('https://iot-ep.azurewebsites.net/api/map/3/2').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -23,9 +25,9 @@ export class TagServiceProvider {
     }); 
   } 
 
-  getTagId(id:any) { 
+  getTagId(id:any): Promise<ITagById>{ 
     return new Promise(resolve => { 
-      this.http.get('https://iot-ep.azurewebsites.net/api/tags/id='+id).subscribe(data => { 
+      this.http.get<ITagById>('https://iot-ep.azurewebsites.net/api/tags/'+id).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -59,7 +61,7 @@ export class TagServiceProvider {
   uploadMap(data) { 
     return new Promise((resolve, reject) => { 
       console.log( data)
-      this.http.put('https://iot-ep.azurewebsites.net/api/map',data,this.httpOptions)
+      this.http.post('https://iot-ep.azurewebsites.net/api/map/1',data,this.httpOptions)
         .subscribe(res => { 
           resolve(res); 
         }, err => { 

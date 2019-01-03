@@ -13,8 +13,9 @@ export class MapComponent {
 
   @ViewChild("canvas") canvas;
   @ViewChild('difke') myDiv: ElementRef;
-  @Input() public width = window.innerWidth * 0.6;
-  @Input() public height = this.width / 16 * 9;
+  @Input() public width = window.innerWidth * 0.35;
+  //@Input() public height = this.width / 16 * 9;
+  @Input() public height = this.width;
   totalw = window.innerWidth
   totalh = window.innerHeight
 
