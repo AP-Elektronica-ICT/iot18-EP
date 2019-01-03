@@ -48,7 +48,7 @@ int afstand;
 void setup() {
   // DEBUG monitoring
   Serial.begin(115200);
-  softSerial.begin(9600);
+  softSerial.begin(115200);
   delay(1000);
   Serial.println(F("### DW1000-arduino-ranging-anchor ###"));
   // initialize the driver
@@ -59,7 +59,7 @@ void setup() {
   DW1000.newConfiguration();
   DW1000.setDefaults();
   DW1000.setDeviceAddress(1);
-  DW1000.setNetworkId(10);
+  DW1000.setNetworkId(11);
   DW1000.enableMode(DW1000.MODE_LONGDATA_RANGE_LOWPOWER);
   DW1000.commitConfiguration();
   Serial.println(F("Committed configuration ..."));
@@ -233,7 +233,7 @@ void loop() {
         Serial.print("Tag ");
         Serial.print(data[16]);
         Serial.print(": "); Serial.print(distance); Serial.println(" m");
-        softSerial.print(distance * 100, DEC);
+        softSerial.print((int)(distance * 100), DEC);
         softSerial.print(".");
         //Serial.print("\t RX power: "); Serial.print(DW1000.getReceivePower()); Serial.println(" dBm");
         //Serial.print("\t Sampling: "); Serial.print(samplingRate); Serial.println(" Hz");
