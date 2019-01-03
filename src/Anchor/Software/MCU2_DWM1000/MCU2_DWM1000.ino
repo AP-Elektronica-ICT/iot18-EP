@@ -26,7 +26,7 @@
  *  - use enum instead of define
  *  - move strings to flash (less RAM consumption)
  */
-uint8_t macAnchor = 1;
+uint8_t macAnchor = 3;
 
 #include <SPI.h>
 #include <DW1000.h>
@@ -72,6 +72,8 @@ uint16_t replyDelayTimeUS = 4000;
 uint16_t successRangingCount = 0;
 uint32_t rangingCountPeriod = 0;
 float samplingRate = 0;
+
+float calibrationValue = 0.9;
 
 int afstand;
 
@@ -285,7 +287,7 @@ void loop() {
         //computeRangeAsymmetric(); // CHOSEN RANGING ALGORITHM
         computeRangeSymmetric();
         transmitRangeReport(timeComputedRange.getAsMicroSeconds());
-        long distance = timeComputedRange.getAsMeters() * 100;
+        long distance = timeComputedRange.getAsMeters() * 100 * calibrationValue;
         
         /*Serial.print("Tag ");
         Serial.print(data[16]);
