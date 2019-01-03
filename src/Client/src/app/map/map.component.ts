@@ -131,8 +131,9 @@ export class MapComponent {
     if(this.totalw != window.innerWidth || this.totalh != window.innerHeight){
       this.totalw = window.innerWidth
       this.totalh = window.innerHeight;
-      this.width = this.totalw *0.6
-      this.height = this.width / 16 * 9;
+      this.width = this.totalw *0.35
+      //this.height = this.width / 16 * 9;
+      this.height = this.width
       this.draw();
 
 
