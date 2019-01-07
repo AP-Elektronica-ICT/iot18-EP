@@ -30,8 +30,9 @@ export class UploadComponent {
   
   handleReaderLoaded(e) {
     this.TagProvider.uploadMap(JSON.stringify({
-      Id: 2,
-      Map:'data:image/png;base64,' + btoa(e.target.result)
+      Width:300,
+      Length:300,
+      Picture:'data:image/png;base64,' + btoa(e.target.result)
   }))
     .then(data => {
       if (data) {

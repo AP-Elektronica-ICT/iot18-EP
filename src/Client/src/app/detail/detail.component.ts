@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {  IImage, ITag } from '../map/map.component';
+import {   ITag } from '../map/map.component';
 import { TagServiceProvider } from '../providers/tag-service/tag-service';
 
 @Component({
@@ -11,12 +11,14 @@ import { TagServiceProvider } from '../providers/tag-service/tag-service';
 export class DetailComponent {
   sub: any;
   id: any;
-  tag: ITag;
+  tag: ITagById;
 
   @ViewChild("canvas") canvas;
   @ViewChild('difke') myDiv: ElementRef;
   @Input() public width = window.innerWidth * 0.6;
-  @Input() public height = this.width / 16 * 9;
+  //@Input() public height = this.width / 16 * 9;
+  @Input() public height = this.width;
+
   totalw = window.innerWidth
   totalh = window.innerHeight
 
@@ -29,7 +31,6 @@ export class DetailComponent {
   left = 0;
   test = 0;
   blob: any;
-  imageBase64: IImage;
   timer: any;
   value: number = 100;
   delay = 1;
@@ -129,4 +130,21 @@ export class DetailComponent {
   }
 
 
+}
+
+export interface IPos{
+  id: number;
+  x_Pos: number;
+  y_Pos: number;
+  stroke: number;
+  status: boolean;
+}
+
+export interface ITagById{
+  tagId:number;
+  description: string;
+  pos: IPos[];
+  mac: string;
+  user: any;
+  map: any;
 }

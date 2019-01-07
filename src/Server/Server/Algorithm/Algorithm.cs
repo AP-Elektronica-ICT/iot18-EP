@@ -10,16 +10,35 @@ namespace Server.Algorithm
     {
         public static double[] Calculate(List<Data> dataList)
         {
-            List<M> ms = new List<M>
-            {
-                calculateThreeCircleIntersection(dataList[1].X_Pos, dataList[1].X_Pos, dataList[1].Distance, dataList[2].X_Pos, dataList[2].Y_Pos, dataList[2].Distance, dataList[3].X_Pos, dataList[3].Y_Pos, dataList[3].Distance),
-                calculateThreeCircleIntersection(dataList[0].X_Pos, dataList[0].Y_Pos, dataList[0].Distance, dataList[1].X_Pos, dataList[1].X_Pos, dataList[1].Distance, dataList[2].X_Pos, dataList[2].Y_Pos, dataList[2].Distance)
-            };
-
-            double xPos = (ms[0].XPos + ms[1].XPos) / 2;
-            double yPos = (ms[0].YPos + ms[1].YPos) / 2;
-
             double[] pos = new double[2];
+            double xPos;
+            double yPos;
+            if (dataList.Count > 3)
+            {
+                List<M> ms = new List<M>
+                {
+                    calculateThreeCircleIntersection(dataList[1].X_Pos, dataList[1].Y_Pos, dataList[1].Distance, dataList[2].X_Pos, dataList[2].Y_Pos, dataList[2].Distance, dataList[3].X_Pos, dataList[3].Y_Pos, dataList[3].Distance),
+                    calculateThreeCircleIntersection(dataList[0].X_Pos, dataList[0].Y_Pos, dataList[0].Distance, dataList[1].X_Pos, dataList[1].Y_Pos, dataList[1].Distance, dataList[2].X_Pos, dataList[2].Y_Pos, dataList[2].Distance)
+                };
+
+                //xPos = (ms[0].XPos + ms[1].XPos) / 2;
+                //yPos = (ms[0].YPos + ms[1].YPos) / 2;
+
+                xPos = ms[0].XPos;
+                yPos = ms[0].YPos;
+            }
+            else if( dataList.Count == 3)
+            {
+                M m = calculateThreeCircleIntersection(dataList[0].X_Pos, dataList[0].Y_Pos, dataList[0].Distance, dataList[1].X_Pos, dataList[1].Y_Pos, dataList[1].Distance, dataList[2].X_Pos, dataList[2].Y_Pos, dataList[2].Distance);
+                xPos = m.XPos;
+                yPos = m.YPos;
+            }
+            else
+            {
+                xPos = 0;
+                yPos = 0;
+            }
+
             pos[0] = xPos;
             pos[1] = yPos;
 
@@ -30,7 +49,7 @@ namespace Server.Algorithm
                                                       double x1, double y1, double r1,
                                                       double x2, double y2, double r2)
         {
-            double EPSILON = 60;
+            double EPSILON = 50;
 
             double a, dx, dy, d, h, rx, ry;
             double point2_x, point2_y;

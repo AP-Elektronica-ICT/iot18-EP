@@ -39,6 +39,7 @@ namespace Server.Controllers
             coordinates = new List<Coordinate>();
 
             var map = _context.Maps.Find(mapId);
+             
             
             //lijst van tags voor bepaalde user
             IQueryable<Tag> tag_query = _context.Tags;
@@ -77,28 +78,44 @@ namespace Server.Controllers
                     List<Measurement> measurements = query.Where(a => a.Mac_Anchor == anchor.Mac)
                                     .Where(t => t.Mac_Tag == tag.Mac)
                                     .ToList();
-                    foreach(var measurement in measurements)
+
+                    if(measurements.Count > 0)
                     {
+                        var measurement = query.Where(a => a.Mac_Anchor == anchor.Mac)
+                                .Where(t => t.Mac_Tag == tag.Mac)
+                                .OrderBy(o => o.Id)
+                                .Last();
+
                         dataList.Add(new Data
                         {
-                            X_Pos = anchor.X_Pos / 100,
-                            Y_Pos = anchor.Y_Pos / 100,
-                            Distance = measurement.Distance / 100
+                            X_Pos = anchor.X_Pos,
+                            Y_Pos = anchor.Y_Pos,
+                            Distance = measurement.Distance
                         });
                     }
                 }
-               
-                double[] pos = Algorithm.Algorithm.Calculate(dataList);
-                
-                int xPos = (int)((pos[0] * 100) / map.Width * 100);
-                int yPos = (int)((pos[1] * 100) / map.Length * 100);
-                coordinates.Add(new Coordinate
+                if (dataList.Count() > 0)
                 {
-                    Tag = tag,
-                    X_Pos = xPos,
-                    Y_Pos = yPos
-                });
 
+
+                    double[] pos = Algorithm.Algorithm.Calculate(dataList);
+
+                    //int xPos = (int)((pos[0]) / (map.Width / 100));
+                    //int yPos = (int)((pos[1]) / (map.Length / 100));
+
+                    double widthFactor = map.Width / 100.0;
+                    double heightFactor = map.Length / 100.0;
+
+                    double xPos = pos[0] / widthFactor;
+                    double yPos = pos[1] / heightFactor;
+
+                    coordinates.Add(new Coordinate
+                    {
+                        Tag = tag,
+                        X_Pos = xPos,
+                        Y_Pos = yPos
+                    });
+                }
 
             }
             ReturnMap returnMap = new ReturnMap
@@ -109,9 +126,6 @@ namespace Server.Controllers
             return Ok(returnMap);
            
         }
-
-
-
 
 
         [HttpPost]
@@ -154,8 +168,8 @@ namespace Server.Controllers
     public class Data
     {
         public double Distance { get; set; }
-        public int X_Pos { get; set; }
-        public int Y_Pos { get; set; }
+        public double X_Pos { get; set; }
+        public double Y_Pos { get; set; }
     }
 
     
