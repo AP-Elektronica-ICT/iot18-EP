@@ -29,7 +29,20 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Create(Measurement item)
         {
-            _context.Measurements.Add(item);
+            //IQueryable<Measurement> query = _context.Measurements;
+            //var data = query.Where(a => a.Mac_Anchor == item.Mac_Anchor).Where(t => t.Mac_Tag == item.Mac_Tag);
+            //long id = data.Max<Measurement>(x => x.Id);
+            
+            //Measurement m = _context.Measurements.Find(id);
+
+            //if (item.Distance == m.Distance)
+            //{
+            //    _context.Measurements.Remove(m);
+            //}
+            //_context.Measurements.Add(item);
+
+            Demo demo = _context.Demos.Where(a => a.Mac_Anchor == item.Mac_Anchor).Last();
+            demo.Distance = item.Distance;
 
             if (_context.SaveChanges() > 0)
                 return Ok();
@@ -51,7 +64,7 @@ namespace Server.Controllers
             IQueryable<Measurement> query = _context.Measurements;
             var data = query.Where(d => d.Mac_Tag == mac);
             long id = data.Max<Measurement>(x => x.Id);
-
+              
             Measurement m = _context.Measurements.Find(id);
             if (m == null)
                 return NotFound();
