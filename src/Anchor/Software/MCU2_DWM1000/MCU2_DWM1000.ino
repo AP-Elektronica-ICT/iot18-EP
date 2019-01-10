@@ -65,13 +65,15 @@ DW1000Time timeComputedRange;
 byte data[LEN_DATA];
 // watchdog and reset period
 uint32_t lastActivity;
-uint32_t resetPeriod = 250;
+uint32_t resetPeriod = 500;
 // reply times (same on both sides for symm. ranging)
 uint16_t replyDelayTimeUS = 4000;
 // ranging counter (per second)
 uint16_t successRangingCount = 0;
 uint32_t rangingCountPeriod = 0;
 float samplingRate = 0;
+
+float calibrationValue = 0.9;
 
 int afstand;
 
@@ -285,7 +287,7 @@ void loop() {
         //computeRangeAsymmetric(); // CHOSEN RANGING ALGORITHM
         computeRangeSymmetric();
         transmitRangeReport(timeComputedRange.getAsMicroSeconds());
-        long distance = timeComputedRange.getAsMeters() * 100;
+        long distance = (timeComputedRange.getAsMeters() - calibrationValue) * 100;
         
         /*Serial.print("Tag ");
         Serial.print(data[16]);

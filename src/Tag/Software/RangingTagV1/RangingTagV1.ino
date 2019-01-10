@@ -26,6 +26,9 @@
  *  - use enum instead of define
  *  - move strings to flash (less RAM consumption)
  */
+uint8_t macTag = 5;
+uint8_t macAnchor = 1;
+
 
 #include <SPI.h>
 #include <DW1000.h>
@@ -52,15 +55,15 @@ DW1000Time timePollSent;
 DW1000Time timePollAckReceived;
 DW1000Time timeRangeSent;
 // data buffer
-#define LEN_DATA 17
+#define LEN_DATA 18
 byte data[LEN_DATA];
 // watchdog and reset period
 uint32_t lastActivity;
-uint32_t resetPeriod = 250;
+uint32_t resetPeriod = 500;
 // reply times (same on both sides for symm. ranging)
-uint16_t replyDelayTimeUS = 3000;
+uint16_t replyDelayTimeUS = 4000;
 
-uint8_t Address = 2;
+
 
 void setup() {
     // DEBUG monitoring
@@ -73,9 +76,9 @@ void setup() {
     // general configuration
     DW1000.newConfiguration();
     DW1000.setDefaults();
-    DW1000.setDeviceAddress(Address);
+    DW1000.setDeviceAddress(macTag);
     DW1000.setNetworkId(10);
-    DW1000.enableMode(DW1000.MODE_LONGDATA_RANGE_LOWPOWER);
+    DW1000.enableMode(DW1000.MODE_LONGDATA_RANGE_ACCURACY);
     DW1000.commitConfiguration();
     Serial.println(F("Committed configuration ..."));
     // DEBUG chip info and registers pretty printed
@@ -124,6 +127,8 @@ void transmitPoll() {
     DW1000.newTransmit();
     DW1000.setDefaults();
     data[0] = POLL;
+    data[16] = macAnchor;
+    data[17] = macTag;
     DW1000.setData(data, LEN_DATA);
     DW1000.startTransmit();
 }
@@ -138,7 +143,8 @@ void transmitRange() {
     timePollSent.getTimestamp(data + 1);
     timePollAckReceived.getTimestamp(data + 6);
     timeRangeSent.getTimestamp(data + 11);
-    data[16] = Address;
+    data[16] = macAnchor;
+    data[17] = macTag;
     DW1000.setData(data, LEN_DATA);
     DW1000.startTransmit();
     //Serial.print("Expect RANGE to be sent @ "); Serial.println(timeRangeSent.getAsFloat());
@@ -150,6 +156,18 @@ void receiver() {
     // so we don't need to restart the receiver manually
     DW1000.receivePermanently(true);
     DW1000.startReceive();
+}
+
+void nextAnchor() {
+  if(macAnchor == 1){
+    macAnchor = 2;
+  }
+  else if(macAnchor == 2){
+    macAnchor = 3;
+  }
+  else if(macAnchor == 3){
+    macAnchor = 1;
+  }
 }
 
 void loop() {
@@ -189,6 +207,7 @@ void loop() {
             expectedMsgId = RANGE_REPORT;
             transmitRange();
             noteActivity();
+            nextAnchor();
         } else if (msgId == RANGE_REPORT) {
             expectedMsgId = POLL_ACK;
             float curRange;
@@ -202,4 +221,3 @@ void loop() {
         }
     }
 }
-
