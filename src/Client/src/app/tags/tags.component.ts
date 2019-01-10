@@ -7,7 +7,7 @@ import { ITag, IMap } from '../map/map.component';
   styleUrls: ['./tags.component.scss']
 })
 export class TagsComponent {
-tags:ITag[];
+tags:ITag;
 map:IMap;
 
 hide=true;
@@ -17,8 +17,9 @@ deleteTag
 
     this.TagProvider.getTags()
     .then(data => {
-      this.map = data;
-      this.tags = this.map.coordinates;
+      //this.map = data;
+      this.tags = data
+      //this.tags = this.map.coordinates;
     });
   }
 

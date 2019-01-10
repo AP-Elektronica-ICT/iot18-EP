@@ -9,15 +9,16 @@ import { TagServiceProvider } from '../providers/tag-service/tag-service';
 })
 export class HomeComponent {
 map:IMap;
-tags:ITag[];
+tags:ITag;
 mapImage:string
 description: String;
   constructor(public TagProvider: TagServiceProvider) {
     this.TagProvider.getTags()
     .then(data => {
-      this.map = data;
-      this.tags = this.map.coordinates;
-      this.mapImage = this.map.picture
+      //this.map = data;
+      //this.tags = this.map.coordinates;
+      this.tags = data
+      //this.mapImage = this.map.picture
     }); 
  }
 
