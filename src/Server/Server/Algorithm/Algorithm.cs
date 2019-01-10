@@ -49,7 +49,7 @@ namespace Server.Algorithm
                                                       double x1, double y1, double r1,
                                                       double x2, double y2, double r2)
         {
-            double EPSILON = 50;
+            double EPSILON = 70;
 
             double a, dx, dy, d, h, rx, ry;
             double point2_x, point2_y;
