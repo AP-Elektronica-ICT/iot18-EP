@@ -33,7 +33,20 @@ namespace Server.Controllers
             Map map = _context.Maps.Find(id);
             return Ok(map);
         }
+         
+        //[HttpGet]
+        //public IActionResult GetCoordinates()
+        //{
+        //    List<Tag> Tags = new List<Tag>();
 
+        //    var tag = _context.Tags.Find((long)13);
+
+        //    Tags.Add(tag);
+
+        //    return Ok(Tags);
+            
+            
+        //}
         [HttpGet]
         public IActionResult GetCoordinates()
         {
@@ -48,13 +61,13 @@ namespace Server.Controllers
                 Mac = "TAG5",
                 Description = "demo"
             };
-            int posAnchor = 250;
+            int posAnchor = 1300;
 
             var measurements = _context.Demos.ToList();
 
             dataList.Add(new Data { Distance = measurements[0].Distance, X_Pos = 0, Y_Pos = 0 });
-            dataList.Add(new Data { Distance = measurements[1].Distance, X_Pos = 250, Y_Pos = 0 });
-            dataList.Add(new Data { Distance = measurements[2].Distance, X_Pos = 250, Y_Pos = 250 });
+            dataList.Add(new Data { Distance = measurements[1].Distance, X_Pos = posAnchor, Y_Pos = 0 });
+            dataList.Add(new Data { Distance = measurements[2].Distance, X_Pos = posAnchor, Y_Pos = posAnchor });
             if (dataList.Count() > 0)
             {
 
@@ -63,8 +76,8 @@ namespace Server.Controllers
                 //int xPos = (int)((pos[0]) / (map.Width / 100));
                 //int yPos = (int)((pos[1]) / (map.Length / 100));
 
-                double widthFactor = 250 / 100.0;
-                double heightFactor = 250 / 100.0;
+                double widthFactor = posAnchor / 100.0;
+                double heightFactor = posAnchor / 100.0;
 
                 double xPos = pos[0] / widthFactor;
                 double yPos = pos[1] / heightFactor;
