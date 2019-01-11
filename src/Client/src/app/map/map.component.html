@@ -3,7 +3,7 @@
 
 </canvas>
 <svg [attr.height]="height" [attr.width]="width" fill="red">
-  <circle *ngFor="let tag of tags; index as i" (mouseenter)="mouseEnter(i)" (mouseleave)="mouseLeave(i)" [attr.cx]="(width/100)*tag.x_Pos"
+  <circle  *ngFor="let tag of tags; index as i" (mouseenter)="mouseEnter(i)" (mouseleave)="mouseLeave(i)" [attr.cx]="(width/100)*tag.x_Pos"
     [attr.cy]="(height/100)*tag.y_Pos  " [attr.r]="tag.stroke" stroke="green" stroke-width="2" [attr.fill]="checkStatus(i)" (click)="detailPage(tag.tag.id)" />
 </svg>
 

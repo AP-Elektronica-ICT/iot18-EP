@@ -19,7 +19,7 @@ const appRoutes: Routes = [
   { path: 'upload', component: UploadComponent},
   { path: 'login', component: LoginComponent},
   { path: 'tags', component: TagsComponent},
-  { path: 'changePassword', component: ChangePasswordComponent},
+  //{ path: 'changePassword', component: ChangePasswordComponent},
   { path: 'detail/:id', component: DetailComponent},
   { path: '',
     redirectTo: '/home',
