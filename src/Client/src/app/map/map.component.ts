@@ -45,7 +45,6 @@ export class MapComponent {
 
   constructor(private router: Router, public TagProvider: TagServiceProvider) {
     this.loadData();
-    this.startTimer();
     this.refresh();
   }
 
@@ -57,9 +56,8 @@ export class MapComponent {
         
         this.TagProvider.getTags()
         .then(data => {
-          this.tags=null;
           //this.tags = data.coordinates
-          this.tags = data
+          this.loadtags(data);
         });
       }
       this.startTimer();
@@ -69,6 +67,13 @@ export class MapComponent {
   detailPage(_id) {
     this.router.navigate(['detail',_id])
 
+  }
+  loadtags(data){
+    if(data[0].x_Pos>3.5 && data[0].y_Pos>3.5 ){
+      this.tags=null;
+       this.tags = data
+       //console.log(this.tags.x_Pos + "," + this.tags.y_Pos)
+    }
   }
 
   checkStatus(id) {
@@ -123,8 +128,12 @@ export class MapComponent {
       .then(data => {
         //this.map = data;
         //this.tags = this.map.coordinates;
+        this.loadtags(data);
+        if (typeof data !== 'undefined' && typeof data !== null) {
+          this.startTimer();
+        }
         //this.mapImage = this.map.picture
-        this.tags = data
+        //this.tags = data
         this.draw();
       });
   }
