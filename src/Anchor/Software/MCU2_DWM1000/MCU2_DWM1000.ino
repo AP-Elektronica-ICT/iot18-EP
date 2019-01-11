@@ -63,9 +63,13 @@ DW1000Time timeComputedRange;
 // data buffer
 #define LEN_DATA 18
 byte data[LEN_DATA];
+
 // watchdog and reset period
 uint32_t lastActivity;
 uint32_t resetPeriod = 50;
+uint32_t lastHardActivity;
+uint32_t hardresetPeriod = 3000;
+
 // reply times (same on both sides for symm. ranging)
 uint16_t replyDelayTimeUS = 4000;
 // ranging counter (per second)
@@ -139,6 +143,7 @@ void sendToEthernet(int tag, int distance){
 void noteActivity() {
   // update activity timestamp, so that we do not reach "resetPeriod"
   lastActivity = millis();
+  lastHardActivity = millis();
 }
 
 void resetInactive() {
@@ -146,6 +151,10 @@ void resetInactive() {
   expectedMsgId = POLL;
   receiver();
   noteActivity();
+}
+
+void resetHardInactive() {
+  DW1000.reset();
 }
 
 void handleSent() {
@@ -238,6 +247,9 @@ void loop() {
     // check if inactive
     if (curMillis - lastActivity > resetPeriod) {
       resetInactive();
+    }
+    if (curMillis - lastHardActivity > hardresetPeriod){
+      resetHardInactive();
     }
     return;
   }
