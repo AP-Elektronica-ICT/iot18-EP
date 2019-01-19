@@ -37,6 +37,16 @@ export class TagServiceProvider {
     }); 
   } 
 
+  getMap(): Promise<IMap>{ 
+    return new Promise(resolve => { 
+      this.http.get<IMap>(this.apiLink +'/picturemap/1').subscribe(data => { 
+        resolve(data); 
+      }, err => { 
+        console.log(err); 
+      }); 
+    }); 
+  } 
+
   addTag(data,uesrId,mapId) { 
     return new Promise((resolve) => { 
       console.log(data)
@@ -63,7 +73,7 @@ export class TagServiceProvider {
   uploadMap(data) { 
     return new Promise((resolve, reject) => { 
       console.log( data)
-      this.http.post(this.apiLink +'/map/1',data,this.httpOptions)
+      this.http.put(this.apiLink +'/map/1',data,this.httpOptions)
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
