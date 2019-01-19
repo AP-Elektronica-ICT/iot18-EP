@@ -14,10 +14,12 @@ export class TagServiceProvider {
       })
     };
   }
+  //apiLink = "https://localhost:5001/api"
+  apiLink = "https://iot-ep.azurewebsites.net/api"
   
-  getTags(): Promise<IMap>  { 
+  getTags(): Promise<ITag>  { 
     return new Promise(resolve => { 
-      this.http.get<IMap>('https://iot-ep.azurewebsites.net/api/map/3/2').subscribe(data => { 
+      this.http.get<ITag>(this.apiLink +"/demo").subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -27,7 +29,7 @@ export class TagServiceProvider {
 
   getTagId(id:any): Promise<ITagById>{ 
     return new Promise(resolve => { 
-      this.http.get<ITagById>('https://iot-ep.azurewebsites.net/api/tags/'+id).subscribe(data => { 
+      this.http.get<ITagById>(this.apiLink +'/tags/'+id).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -38,7 +40,7 @@ export class TagServiceProvider {
   addTag(data,uesrId,mapId) { 
     return new Promise((resolve) => { 
       console.log(data)
-      this.http.post('https://iot-ep.azurewebsites.net/api/tags/' + uesrId +'/' + mapId,data,this.httpOptions) 
+      this.http.post(this.apiLink +'/tags/' + uesrId +'/' + mapId,data,this.httpOptions) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -49,7 +51,7 @@ export class TagServiceProvider {
 
   deleteTag(data) { 
     return new Promise((resolve) => { 
-      this.http.post('https://iot-ep.azurewebsites.net/api/delete', JSON.stringify(data)) 
+      this.http.post(this.apiLink +'/delete', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -61,7 +63,7 @@ export class TagServiceProvider {
   uploadMap(data) { 
     return new Promise((resolve, reject) => { 
       console.log( data)
-      this.http.post('https://iot-ep.azurewebsites.net/api/map/1',data,this.httpOptions)
+      this.http.post(this.apiLink +'/map/1',data,this.httpOptions)
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -73,7 +75,7 @@ export class TagServiceProvider {
   putDescription(data,id) { 
     return new Promise(resolve => { 
       console.log(data)
-      this.http.put('https://iot-ep.azurewebsites.net/api/tags/'+id,data,this.httpOptions).subscribe(data => { 
+      this.http.put(this.apiLink +'/tags/'+id,data,this.httpOptions).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 

@@ -24,13 +24,11 @@ namespace Server.Controllers
             //}
         }
         [HttpGet]
-        [Route("api/picturemap/{userId}")]
-        public ActionResult GetMap(int userId)
+        [Route("api/picturemap/{mapId}")]
+        public ActionResult GetMap(long mapId)
         {
-            var maps = _context.Maps.ToList().Where(d => d.User.Id == userId);
-            if (maps != null)
-                return Ok(maps);
-            return NotFound();
+            var map = _context.Maps.Find(mapId);
+            return Ok(map);
         }
     }
 

@@ -21,7 +21,7 @@ export class MapComponent {
 
 
   private cx: CanvasRenderingContext2D;
-  map: IMap;
+  //map: IMap;
   show = false;
   info: String;
   description: String;
@@ -36,7 +36,7 @@ export class MapComponent {
   teller: any;
   _distance :any;
   strokeWidth = 5;
-  tags:ITag[]
+  tags:ITag;
   mapImage:string
 
 
@@ -45,7 +45,7 @@ export class MapComponent {
 
   constructor(private router: Router, public TagProvider: TagServiceProvider) {
     this.loadData();
-    this.startTimer();
+    this.refresh();
   }
 
 
@@ -56,11 +56,9 @@ export class MapComponent {
         
         this.TagProvider.getTags()
         .then(data => {
-          this.tags=null;
-          this.tags = data.coordinates
+          //this.tags = data.coordinates
+          this.loadtags(data);
         });
-        this.refresh();
-
       }
       this.startTimer();
     }, this.delay * 1000);
@@ -69,6 +67,13 @@ export class MapComponent {
   detailPage(_id) {
     this.router.navigate(['detail',_id])
 
+  }
+  loadtags(data){
+    if(data[0].x_Pos>3.5 && data[0].y_Pos>3.5 ){
+      this.tags=null;
+       this.tags = data
+       //console.log(this.tags.x_Pos + "," + this.tags.y_Pos)
+    }
   }
 
   checkStatus(id) {
@@ -114,30 +119,38 @@ export class MapComponent {
     image.onload = () => {
       this.cx.drawImage(image, 0, 0, this.width, this.height);
     }
-        image.src = this.mapImage
-  }
+        //image.src = this.mapImage
+          image.src = 	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAzsAAAHcCAYAAADx8bQ8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAq6SURBVHhe7dyxTStBAEXR8RcR7sErCiCigXUJVEEd7oF6cCVIOEIiJURiP5KXjALsq3OS1ZsOrjSzm+XHAAAAiPm3fgEAAFI2T09Py8fHxzoBAACu2/39/TgcDmMzTdNyOp3WYwAAgOs2z/M4Ho+usQEAAE1iBwAASBI7AABA0p9vdm5ubsZ2u10XAADAZfr8/Bzf39/rOvt9s/Nn7Oz3+/Hy8rIuAACAy3R3dzfe3t7WdeYHBQAAQJrYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAIAksQMAACSJHQAAIEnsAAAASWIHAABIEjsAAECS2AEAAJLEDgAAkCR2AACAJLEDAAAkiR0AACBJ7AAAAEliBwAASBI7AABAktgBAACSxA4AAJAkdgAAgCSxAwAAJIkdAAAgSewAAABJYgcAAEgSOwAAQJLYAQAAksQOAACQJHYAAICkzTRNy+l0WufZ7e3t2O126wIAALhMr6+v4+vra11n8zyP4/H4d+wAAABcq9/YcY0NAABIEjsAAECS2AEAAJI2j4+Py/v7+zoBAACu28PDw3h+fh6b5cd6BgAAEDHGf0F0TozWQ3aJAAAAAElFTkSuQmCC"
+      }
 
   loadData() {
     this.TagProvider.getTags()
       .then(data => {
-        this.map = data;
-        this.tags = this.map.coordinates;
-        this.mapImage = this.map.picture
+        //this.map = data;
+        //this.tags = this.map.coordinates;
+        this.loadtags(data);
+        if (typeof data !== 'undefined' && typeof data !== null) {
+          this.startTimer();
+        }
+        //this.mapImage = this.map.picture
+        //this.tags = data
         this.draw();
       });
   }
 
   refresh(){
-    if(this.totalw != window.innerWidth || this.totalh != window.innerHeight){
-      this.totalw = window.innerWidth
-      this.totalh = window.innerHeight;
-      this.width = this.totalw *0.35
-      //this.height = this.width / 16 * 9;
-      this.height = this.width
-      this.draw();
-
-
-    }
+    this.timer = setTimeout(x => {
+      if(this.totalw != window.innerWidth || this.totalh != window.innerHeight){
+        this.totalw = window.innerWidth
+        this.totalh = window.innerHeight;
+        this.width = this.totalw *0.35
+        //this.height = this.width / 16 * 9;
+        this.height = this.width
+        this.draw();
+      }
+      this.refresh();
+    },1000);
+   
   }
 
   mouseEnter(x) {

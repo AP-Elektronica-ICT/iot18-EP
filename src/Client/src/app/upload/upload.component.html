@@ -1,4 +1,14 @@
 <h1>File Upload</h1>
 <input  type="file" (change)="onUploadChange($event)" accept=".png, .jpg, .jpeg" /><br/>
-<img   src={{map}} alt="" id="img"><br/>
-<button type="button" class="btn btn-primary" (click)='upload()'>Upload image</button>
+<img   src={{map}} alt="" id="img"  height={{imageHeight}}><br/>
+
+<label>
+    Height:
+    <input type="text" #desHeight>
+  </label><br/>
+  <label>
+    Width:
+    <input type="text" #desWidth>
+  </label><br/>
+
+<button type="button" class="btn btn-primary" (click)='upload(desHeight.value,desWidth.value)'>Upload image</button>

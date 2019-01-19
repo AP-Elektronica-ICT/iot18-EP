@@ -26,7 +26,7 @@
  *  - use enum instead of define
  *  - move strings to flash (less RAM consumption)
  */
-uint8_t macAnchor = 1;
+uint8_t macAnchor = 3;
 
 #include <SPI.h>
 #include <DW1000.h>
@@ -65,7 +65,7 @@ DW1000Time timeComputedRange;
 byte data[LEN_DATA];
 // watchdog and reset period
 uint32_t lastActivity;
-uint32_t resetPeriod = 500;
+uint32_t resetPeriod = 50;
 // reply times (same on both sides for symm. ranging)
 uint16_t replyDelayTimeUS = 4000;
 // ranging counter (per second)

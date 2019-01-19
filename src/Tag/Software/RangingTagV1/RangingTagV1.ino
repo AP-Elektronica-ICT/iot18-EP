@@ -30,6 +30,8 @@ uint8_t macTag = 5;
 uint8_t macAnchor = 1;
 
 
+
+
 #include <SPI.h>
 #include <DW1000.h>
 
@@ -59,7 +61,7 @@ DW1000Time timeRangeSent;
 byte data[LEN_DATA];
 // watchdog and reset period
 uint32_t lastActivity;
-uint32_t resetPeriod = 500;
+uint32_t resetPeriod = 200;
 // reply times (same on both sides for symm. ranging)
 uint16_t replyDelayTimeUS = 4000;
 
@@ -108,9 +110,12 @@ void noteActivity() {
 
 void resetInactive() {
     // tag sends POLL and listens for POLL_ACK
+    macAnchor = 1;
     expectedMsgId = POLL_ACK;
     transmitPoll();
     noteActivity();
+    Serial.println("RESET");
+    //DW1000.reset();
 }
 
 void handleSent() {
