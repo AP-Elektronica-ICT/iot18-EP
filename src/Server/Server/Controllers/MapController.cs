@@ -144,6 +144,26 @@ namespace Server.Controllers
             return Ok(map);
         }
 
+        [HttpPut]
+        [Route("{mapId}")]
+        public IActionResult UpdateMap([FromBody] Map map, long mapId)
+        {
+            var newMap = _context.Maps.Find(mapId);
+
+            if (map.Picture != null)
+                newMap.Picture = map.Picture;
+            if (map.Length != 0)
+                newMap.Length = map.Length;
+            if (map.Width != 0)
+                newMap.Width = map.Width;
+
+            if (_context.SaveChanges() < 0)
+                return NotFound(newMap);
+            return Ok(newMap);
+
+
+        }
+
 
         public IActionResult Index()
         {
