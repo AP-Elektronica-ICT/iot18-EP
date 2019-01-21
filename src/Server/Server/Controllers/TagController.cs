@@ -49,14 +49,21 @@ namespace Server.Controllers
         //{
         //    return _context.Tags.ToList();
         //}
-
-
-        [Route("{id}")]
+        [Route("{userId}")]
         [HttpGet]
-        public IActionResult GetTag(long id)
+        public IActionResult GetTags(int userId)
         {
+            var tags = _context.Tags.Where(m => m.User.Id == userId).ToList();
+            if (tags != null)
+                return Ok(tags);
+            return NotFound();
+        }
 
-            var tag = _context.Tags.Find(id);
+        [Route("{userId}/{tagId}")]
+        [HttpGet]
+        public IActionResult GetTag(int userId, long tagId)
+        {
+            var tag = _context.Tags.Where(d => d.User.Id == userId).Where(m => m.Id == tagId).First();
             if (tag == null)
                 return NotFound();
 

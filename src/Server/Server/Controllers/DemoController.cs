@@ -61,7 +61,7 @@ namespace Server.Controllers
                 Mac = "TAG5",
                 Description = "demo"
             };
-            int posAnchor = 1300;
+            int posAnchor = 1400;
 
             var measurements = _context.Demos.ToList();
 
