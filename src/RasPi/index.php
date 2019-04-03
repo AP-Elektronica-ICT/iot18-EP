@@ -4,23 +4,23 @@
     
 	if(isset($_POST))
    	{
-        	$inputJSON = file_get_contents("php://input");
-        	$data = json_decode($inputJSON, true);
+        $inputJSON = file_get_contents("php://input");
+        $data = json_decode($inputJSON, true);
         
-        	$mac_tag = $data["MAC_TAG"];
+        $mac_tag = $data["MAC_TAG"];
 		$mac_anchor = $data["MAC_ANCHOR"];
 		$distance = $data["DISTANCE"];
 		
 
 		$export = $distance.",".date("U");
 
-		$file_path = "data/".$mac_tag."/".$mac_anchor;
+		$file_path = "data/".$mac_tag."/".$mac_anchor;	
         	
 		if (!file_exists($file_path)) {
-    			mkdir("data/".$mac_tag, 0755, true);
+            mkdir("data/".$mac_tag, 0777, true);
 		}
-		
-        	$myfile = fopen($file_path, "w") or die("Unable to open file!");
+        
+        $myfile = fopen($file_path, "w") or die("Unable to open file!");
 		fwrite($myfile, $export);
 
 
